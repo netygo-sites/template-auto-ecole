@@ -1,0 +1,21 @@
+---
+import Base from '../layouts/Base.astro';
+import AboutHero from '../components/about/AboutHero.astro';
+import Numbers from '../components/about/Numbers.astro';
+import Gain from '../components/about/Gain.astro';
+import Instructors from '../components/home/Instructors.astro';
+import Extras from '../components/Extras.astro';
+import FaqSection from '../components/about/FaqSection.astro';
+import CtaBand from '../components/CtaBand.astro';
+import PhotoStrip from '../components/PhotoStrip.astro';
+---
+<Base>
+  <AboutHero />
+  <Numbers />
+  <Gain />
+  <Instructors noTop />
+  <Extras />
+  <FaqSection />
+  <CtaBand title="Take the first step toward driving with confidence and freedom" label="Get Started Now" href="/contact-us" />
+  <PhotoStrip />
+</Base>

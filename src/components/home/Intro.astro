@@ -1,0 +1,54 @@
+---
+import IconRow from '../IconRow.astro';
+const stats = [
+  { n: '22', label: 'Instructors' },
+  { n: '999', label: 'Happy students' },
+  { n: '18', label: 'Training cars' },
+  { n: '250', label: 'Top reviews' },
+];
+---
+<section class="intro">
+  <div class="intro-in">
+    <div class="intro-head">
+      <IconRow icons={['gear', 'seat', 'wheel', 'car', 'pump', 'plug', 'sun']} />
+      <h3 class="t-h3 hpic-title">We build <span class="hpic"><img src="/images/Jje0zLtFpVDN0kYFG7MKIdWs0Q.jpg" alt="" /></span> more than driving skills we build the confidence <span class="hpic"><img src="/images/VIp5HW8MWDqaoVtQYRetErG5pmM.jpg" alt="" /></span> to handle any road, any situation</h3>
+    </div>
+    <div class="stats">
+      {stats.map((s) => (
+        <div class="stat">
+          <div class="stat-n"><span class="t-num">{s.n}</span><i class="ico i-plus plus"></i></div>
+          <h6 class="t-h6m stat-l">{s.label}</h6>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .intro { display: flex; justify-content: center; padding: 130px 0; background: var(--creme); overflow: clip; }
+  .intro-in { display: flex; flex-direction: column; align-items: center; gap: 60px; width: 100%; max-width: 1210px; padding: 0 20px; }
+  .intro-head { display: flex; flex-direction: column; align-items: center; gap: 40px; max-width: 700px; }
+  .stats { display: flex; align-items: center; width: 100%; }
+  .stat { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; flex: 1 0 0; padding: 20px 0 20px 40px; }
+  .stat + .stat { border-left: 1px solid var(--encre-20); }
+  .stat-n { display: flex; align-items: flex-start; white-space: nowrap; }
+  .plus { width: 28px; height: 28px; color: var(--jaune); }
+  .stat-l { white-space: nowrap; }
+
+  @media (max-width: 1279px) {
+    .intro { padding: 100px 0; }
+    .intro-in { gap: 50px; }
+    .plus { width: 24px; height: 24px; }
+  }
+  @media (max-width: 991px) {
+    .intro { padding: 80px 0; }
+    .intro-in { gap: 40px; }
+    .intro-head { gap: 30px; max-width: 580px; }
+    .stats { flex-wrap: wrap; gap: 40px; }
+    .stat { flex: 1 0 calc(50% - 20px); align-items: center; padding: 0; }
+    .stat + .stat { border-left: 0; }
+    .stat-n { justify-content: center; }
+    .plus { width: 14px; height: 14px; }
+    .stat-l { text-align: center; }
+  }
+</style>

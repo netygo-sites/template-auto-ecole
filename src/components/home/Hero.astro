@@ -1,0 +1,85 @@
+---
+import Button from '../Button.astro';
+import ArrowButton from '../ArrowButton.astro';
+import Pixels from '../Pixels.astro';
+---
+<section class="hero">
+  <div class="hero-top">
+    <div class="hero-text">
+      <div class="hero-head">
+        <h1 class="t-h1">Begin your driving journey with confidence.</h1>
+        <p class="t-lead hero-lead">Our skilled instructors are dedicated to supporting you throughout your learning process</p>
+      </div>
+      <div class="hero-cta">
+        <Button href="/contact-us" label="Start Learning Today" />
+        <div class="clients">
+          <div class="avatars" aria-hidden="true">
+            <span class="av"><img src="/images/k5VOdEDPULOkyml2pItgwybkX0.jpg" alt="" /></span>
+            <span class="av"><img src="/images/OJBh3qFoWTd23QTIbh5iWbFsUCk.jpg" alt="" /></span>
+            <span class="av"><img src="/images/0Pc81cXlvdXS8ngbNG1m5OuJQ.jpg" alt="" /></span>
+          </div>
+          <p class="t-body">1,000+ satisfied clients</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <Pixels cell={20} mobileCell={16} corner="tr" />
+      <div class="hero-card-top">
+        <div class="t-num">98%</div>
+        <h6 class="t-h6">First-time pass rate</h6>
+      </div>
+      <div class="hero-card-bot">
+        <p class="t-body hero-card-p">Join thousands of students who got licensed with us</p>
+        <ArrowButton href="/services" label="Our services" />
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-img cover">
+    <img src="/images/v5Dka5ewdA0F7P5EfYtvYcl1yVo.jpg" alt="Student smiling out of a car window" />
+  </div>
+</section>
+
+<style>
+  .hero { display: flex; flex-direction: column; align-items: center; gap: 80px; padding-top: 180px; background: var(--creme); overflow: clip; }
+  .hero-top { position: relative; display: flex; align-items: center; gap: 10px; width: 100%; max-width: 1210px; padding: 0 20px; }
+  .hero-text { display: flex; flex-direction: column; align-items: flex-start; gap: 40px; flex: 1 0 0; max-width: 700px; }
+  .hero-head { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; }
+  .hero-lead { max-width: 410px; }
+  .hero-cta { display: flex; align-items: center; gap: 40px; width: 100%; }
+  .clients { display: flex; align-items: center; gap: 10px; flex: 1 0 0; }
+  .avatars { position: relative; flex: none; width: 111px; height: 44px; }
+  .av { position: absolute; top: 0; width: 44px; height: 44px; border-radius: 100%; background: var(--creme); overflow: clip; }
+  .av:nth-child(1) { left: 0; }
+  .av:nth-child(2) { left: 36px; z-index: 1; }
+  .av:nth-child(3) { left: 66px; z-index: 2; }
+  .av img { position: absolute; inset: 2px; width: 40px; height: 40px; border-radius: 100%; object-fit: cover; }
+  .av:nth-child(1) img { object-position: 100% 50%; }
+
+  .hero-card {
+    position: absolute; right: 20px; bottom: -130px; z-index: 1;
+    display: flex; flex-direction: column; align-items: center; gap: 40px;
+    width: 30%; max-width: 370px; padding: 40px;
+    background: var(--jaune);
+  }
+  .hero-card-top { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; width: 100%; }
+  .hero-card-bot { display: flex; align-items: center; gap: 40px; width: 100%; }
+  .hero-card-p { flex: 1 0 0; color: var(--encre); }
+  .hero-img { width: 100%; height: 550px; }
+
+  @media (max-width: 1279px) {
+    .hero { gap: 60px; padding-top: 160px; }
+    .hero-text { max-width: 650px; }
+    .hero-card { gap: 30px; padding: 40px 20px; bottom: -100px; }
+    .hero-card-bot { gap: 20px; }
+    .hero-img { height: 400px; }
+  }
+  @media (max-width: 991px) {
+    .hero { gap: 130px; padding-top: 120px; }
+    .hero-text { max-width: none; gap: 30px 40px; }
+    .hero-cta { flex-wrap: wrap; gap: 20px 40px; }
+    .hero-card { left: 20px; right: 19px; width: auto; max-width: none; bottom: -240px; padding: 20px; gap: 30px; }
+    .hero-img { height: 450px; }
+  }
+</style>

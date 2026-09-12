@@ -1,0 +1,52 @@
+---
+import Button from '../Button.astro';
+// photos inclinées de la galerie (bureau / tablette : 7 photos ; mobile : les 3 premières)
+const photos = [
+  { src: '/images/pORbCaVsPNiIPlmLSwkFZgMhZGo.jpg', r: -4, m: 'hide-m' },
+  { src: '/images/il7l9exshjLsrLNfOCc3csfkQd8.jpg', r: 4, m: 'hide-m' },
+  { src: '/images/EbB9eodnFNdqxCRRNatDbooI0.jpg', r: -4, m: 'm1' },
+  { src: '/images/bMEfIA9nEnAPjsfU3jTmOqXd5Ig.jpg', r: 0, m: 'm2' },
+  { src: '/images/EFz7lf2u9q4l7aq0rqTjbaQGag.jpg', r: 4, m: 'm3' },
+  { src: '/images/0Pc81cXlvdXS8ngbNG1m5OuJQ.jpg', r: -4, m: 'hide-m' },
+  { src: '/images/4IcybSoj2pHcKX0INPCRyzyLyAw.jpg', r: 4, m: 'hide-m' },
+];
+---
+<section class="gal">
+  <div class="gal-in">
+    <div class="photos" aria-hidden="true">
+      {photos.map((p) => (
+        <div class:list={['photo', p.m]} style={`--r:${p.r}deg`}><img src={p.src} alt="" /></div>
+      ))}
+    </div>
+    <div class="cta">
+      <div class="cta-t">
+        <h2 class="t-h2 center">Ready prepared to start on your driving adventure with us?</h2>
+        <p class="t-lead center cta-p">Schedule your initial lesson now and confidently begin your journey to obtaining a driving license</p>
+      </div>
+      <Button href="/contact-us" label="Book a Lesson" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .gal { display: flex; justify-content: center; padding: 130px 0; background: var(--sable); overflow: clip; }
+  .gal-in { display: flex; flex-direction: column; align-items: center; gap: 80px; width: 100%; max-width: 1210px; padding: 0 20px; }
+  .photos { display: flex; align-items: center; justify-content: center; gap: 6px; }
+  .photo { flex: none; width: 120px; height: 150px; border-radius: 5px; overflow: clip; box-shadow: 0 3px 8px 0 var(--encre-20); transform: rotate(var(--r)); }
+  .photo img { width: 100%; height: 100%; object-fit: cover; }
+  .cta { display: flex; flex-direction: column; align-items: center; gap: 30px; }
+  .cta-t { display: flex; flex-direction: column; align-items: center; gap: 12px; max-width: 620px; }
+  .cta-p { max-width: 500px; }
+
+  @media (max-width: 1279px) {
+    .gal { padding: 100px 0; }
+    .gal-in { gap: 60px; }
+  }
+  @media (max-width: 991px) {
+    .gal { padding: 80px 0; }
+    .gal-in { gap: 50px; }
+    .photo.m1 { width: 88px; height: 110px; --r: -4deg; }
+    .photo.m2 { width: 88px; height: 110px; --r: 0deg; }
+    .photo.m3 { width: 88px; height: 110px; --r: 4deg; }
+  }
+</style>

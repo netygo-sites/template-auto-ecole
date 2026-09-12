@@ -1,0 +1,80 @@
+---
+import Base from '../../layouts/Base.astro';
+import Button from '../../components/Button.astro';
+import ContactForm from '../../components/ContactForm.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import PhotoStrip from '../../components/PhotoStrip.astro';
+import '../../styles/richtext.css';
+import { services } from '../../data/services';
+import { serviceDetails, defaultServiceDetail } from '../../data/serviceDetails';
+
+export function getStaticPaths() {
+  return services.map((s) => ({ params: { slug: s.slug }, props: { service: s } }));
+}
+const { service } = Astro.props;
+const d = serviceDetails[service.slug] ?? defaultServiceDetail;
+---
+<Base title={`${service.title} — GearUp`} description={service.excerpt}>
+  <section class="sd-hero">
+    <div class="sd-hero-in">
+      <div class="sd-hero-t">
+        <div class="sd-hero-h">
+          <h1 class="t-h1 center">{service.title}</h1>
+          <p class="t-lead center sd-lead">{service.excerpt}</p>
+        </div>
+        <Button href="/contact-us" label="Get Free Advice" variant="jaune" />
+      </div>
+    </div>
+    <div class="sd-img cover"><img src="/images/Jje0zLtFpVDN0kYFG7MKIdWs0Q.jpg" alt="" /></div>
+  </section>
+
+  <section class="sd-body">
+    <div class="sd-body-in">
+      <article class="rich sd-article">
+        <h2>{d.heading}</h2>
+        {d.intro.map((p) => <p>{p}</p>)}
+        <h3>{d.forTitle}</h3>
+        <ul>{d.forList.map((li) => <li><p>{li}</p></li>)}</ul>
+        <h3>{d.includedTitle}</h3>
+        <p>{d.includedIntro}</p>
+        <ul>{d.included.map((li) => <li><p>{li}</p></li>)}</ul>
+        <p>{d.outro}</p>
+      </article>
+      <div class="sd-side"><ContactForm /></div>
+    </div>
+  </section>
+
+  <CtaBand title="Take the first step toward driving with confidence and freedom" label="Get Started Now" href="/contact-us" />
+  <PhotoStrip />
+</Base>
+
+<style>
+  .sd-hero { display: flex; flex-direction: column; align-items: center; gap: 60px; padding: 180px 0 130px; background: var(--creme); overflow: clip; }
+  .sd-hero-in { display: flex; align-items: center; justify-content: center; gap: 80px; width: 100%; max-width: 1210px; padding: 0 20px; }
+  .sd-hero-t { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 40px; flex: 1 0 0; max-width: 530px; }
+  .sd-hero-h { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+  .sd-lead { max-width: 330px; }
+  .sd-img { width: 100%; height: 550px; }
+  .sd-body { display: flex; justify-content: center; padding: 0 0 130px; background: var(--creme); overflow: clip; }
+  .sd-body-in { display: flex; align-items: flex-start; justify-content: center; gap: 100px; width: 100%; max-width: 1210px; padding: 0 20px; }
+  .sd-article { flex: 1 0 0; max-width: 602px; }
+  .sd-side { position: sticky; top: 140px; display: flex; flex: 1 0 0; max-width: 40%; }
+  @media (max-width: 1279px) {
+    .sd-hero { gap: 50px; padding: 160px 0 100px; }
+    .sd-hero-in { padding: 0 40px; }
+    .sd-img { height: 400px; }
+    .sd-body { padding-bottom: 100px; }
+    .sd-body-in { gap: 60px; }
+    .sd-side :global(.cform) { padding: 30px 20px; }
+  }
+  @media (max-width: 991px) {
+    .sd-hero { gap: 40px; padding: 120px 0 80px; }
+    .sd-hero-in { flex-direction: column; gap: 40px; padding: 0 20px; }
+    .sd-hero-t { gap: 24px; flex: none; max-width: none; }
+    .sd-img { height: 450px; }
+    .sd-body { padding-bottom: 80px; }
+    .sd-body-in { flex-direction: column; gap: 40px; }
+    .sd-article { flex: none; max-width: none; }
+    .sd-side { position: relative; top: 0; flex: none; max-width: none; width: 100%; }
+  }
+</style>

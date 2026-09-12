@@ -1,0 +1,90 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Button from '../components/Button.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import Testimonials from '../components/home/Testimonials.astro';
+import CtaBand from '../components/CtaBand.astro';
+import PhotoStrip from '../components/PhotoStrip.astro';
+import { services } from '../data/services';
+const stats = [
+  { n: '22', label: 'Instructors' },
+  { n: '999', label: 'Happy Students' },
+  { n: '18', label: 'Training Cars' },
+  { n: '250', label: 'Top Reviews' },
+];
+---
+<Base>
+  <PageHero tag="Services" title="Support that drives you forward" lead="Discover the full range of services that support, guide, and empower you to become a safe and skilled driver" image="/images/AmvIyynlBZcFt7U6AYxxRMn3F0.jpg" />
+
+  <section class="sintro">
+    <div class="sintro-in">
+      <div class="sintro-head">
+        <div class="sintro-t">
+          <h2 class="t-h2">The first step to driving confidence starts with us</h2>
+          <p class="t-lead">At GearUp, we make learning easy, safe, and tailored to your pace. Whether you're just starting or brushing up, we're here to guide you!</p>
+        </div>
+        <Button href="/about-us" label="Learn More About Us" class="hide-m" />
+      </div>
+      <div class="sstats">
+        {stats.map((s) => (
+          <div class="sstat">
+            <div class="sstat-n"><span class="t-num">{s.n}</span><i class="ico i-plus plus"></i></div>
+            <h6 class="t-h6m sstat-l">{s.label}</h6>
+          </div>
+        ))}
+      </div>
+      <Button href="/about-us" label="Learn More About Us" class="show-m" />
+    </div>
+  </section>
+
+  <section class="sgrid">
+    <div class="sgrid-in">
+      <h3 class="t-h3 hpic-title sgrid-h">Explore additional services designed to <span class="hpic"><img src="/images/EbB9eodnFNdqxCRRNatDbooI0.jpg" alt="" /></span> elevate your driving experience</h3>
+      <div class="sgrid-cards">
+        {services.map((s) => <ServiceCard service={s} />)}
+      </div>
+    </div>
+  </section>
+
+  <Testimonials />
+  <CtaBand title="Take the first step toward driving with confidence and freedom" label="Get Started Now" href="/contact-us" />
+  <PhotoStrip />
+</Base>
+
+<style>
+  .sintro { display: flex; justify-content: center; padding: 130px 0; background: var(--creme); overflow: clip; }
+  .sintro-in { display: flex; flex-direction: column; align-items: flex-start; gap: 60px; width: 100%; max-width: 1210px; padding: 0 20px; }
+  .sintro-head { display: flex; align-items: flex-end; justify-content: space-between; width: 100%; }
+  .sintro-t { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; flex: 1 0 0; max-width: 560px; }
+  .sstats { display: flex; align-items: center; width: 100%; }
+  .sstat { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 12px; flex: 1 0 0; padding: 20px 0 20px 40px; border-left: 1px solid var(--encre-20); }
+  .sstat-n { display: flex; align-items: flex-start; white-space: nowrap; }
+  .plus { width: 28px; height: 28px; color: var(--jaune); }
+  .sstat-l { white-space: nowrap; }
+
+  .sgrid { display: flex; justify-content: center; padding: 0 0 130px; background: var(--creme); overflow: clip; }
+  .sgrid-in { display: flex; flex-direction: column; align-items: center; gap: 60px; width: 100%; max-width: 1210px; padding: 0 20px; }
+  .sgrid-h { max-width: 500px; }
+  .sgrid-cards { display: grid; grid-template-columns: repeat(3, 1fr); align-items: center; gap: 10px; width: 100%; padding-bottom: 10px; }
+
+  @media (max-width: 1279px) {
+    .sintro { padding: 100px 0; }
+    .sintro-in { gap: 50px; }
+    .plus { width: 24px; height: 24px; }
+    .sgrid { padding-bottom: 100px; }
+    .sgrid-in { gap: 50px; }
+  }
+  @media (max-width: 991px) {
+    .sintro { padding: 80px 0; }
+    .sintro-in { gap: 40px; }
+    .sintro-t { max-width: 440px; }
+    .sstats { display: grid; grid-template-columns: 163px 163px; gap: 40px 24px; }
+    .sstat { align-items: flex-start; padding: 0 0 0 20px; }
+    .plus { width: 14px; height: 14px; }
+    .sgrid { padding-bottom: 80px; }
+    .sgrid-in { gap: 40px; }
+    .sgrid-h { max-width: 470px; }
+    .sgrid-cards { grid-template-columns: 1fr; }
+  }
+</style>

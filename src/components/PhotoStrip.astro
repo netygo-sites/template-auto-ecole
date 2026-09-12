@@ -1,0 +1,42 @@
+---
+/** Bande de six photos (liens Instagram) avec pastille jaune au survol. Mobile : quatre photos sur deux rangs. */
+const photos = [
+  '/images/iyzIsyjXZmc85G47CybNbDv0s.jpg',
+  '/images/EbB9eodnFNdqxCRRNatDbooI0.jpg',
+  '/images/v5Dka5ewdA0F7P5EfYtvYcl1yVo.jpg',
+  '/images/EFz7lf2u9q4l7aq0rqTjbaQGag.jpg',
+  '/images/tLUQkKhOiZMfzQe7vR1MgchxJM.jpg',
+  '/images/j7dpoJh6pOHcjN4iDn94MZ8.jpg',
+];
+---
+<section class="strip">
+  <div class="strip-in">
+    {photos.map((src, i) => (
+      <a href="https://www.instagram.com/" target="_blank" rel="noopener" class:list={['strip-a', { 'hide-m': i >= 4 }]} aria-label="Instagram">
+        <span class="strip-badge"><i class="ico i-instagram"></i></span>
+        <span class="strip-img cover"><img src={src} alt="" /></span>
+      </a>
+    ))}
+  </div>
+</section>
+
+<style>
+  .strip { display: flex; justify-content: center; background: var(--encre); overflow: clip; }
+  .strip-in { display: flex; align-items: center; width: 100%; }
+  .strip-a { position: relative; display: flex; flex: 1 0 0; height: 200px; overflow: clip; }
+  .strip-img { flex: 1 0 0; transition: filter .4s var(--ease); }
+  .strip-badge {
+    position: absolute; top: 50%; left: 50%; z-index: 1;
+    display: flex; align-items: center; justify-content: center;
+    width: 43px; height: 43px; margin: -21.5px 0 0 -21.5px;
+    border-radius: 100%; background: var(--jaune); color: var(--encre);
+    opacity: 0; transform: scale(.9); transition: opacity .3s var(--ease), transform .3s var(--ease);
+  }
+  .strip-badge .ico { width: 18px; height: 18px; }
+  .strip-a:hover .strip-badge { opacity: 1; transform: scale(1); }
+  .strip-a:hover .strip-img { filter: brightness(.7); }
+  @media (max-width: 991px) {
+    .strip-in { flex-wrap: wrap; }
+    .strip-a { flex: 0 0 50%; height: 180px; }
+  }
+</style>

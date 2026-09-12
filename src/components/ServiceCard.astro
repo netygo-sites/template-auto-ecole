@@ -1,0 +1,31 @@
+---
+import Pixels from './Pixels.astro';
+import type { Service } from '../data/services';
+interface Props { service: Service; }
+const { service: s } = Astro.props;
+---
+<a href={`/services/${s.slug}`} class="svc">
+  <span class="svc-top">
+    <span class="roll t-h5 svc-h"><h5>{s.title}</h5><h5 aria-hidden="true">{s.title}</h5></span>
+    <span class="svc-tile"><img src={s.icon} alt="" width="24" height="24" /></span>
+  </span>
+  <span class="svc-b">
+    <p class="t-body">{s.excerpt}</p>
+    <span class="btn-like"><span class="btn-roll"><span class="btn-l">Read More</span><span class="btn-l" aria-hidden="true">Read More</span></span></span>
+  </span>
+  <Pixels cell={20} corner="br" />
+</a>
+
+<style>
+  .svc { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 40px; padding: 20px; border-radius: 5px; background: var(--sable-2); overflow: clip; }
+  .svc-top { display: flex; align-items: center; gap: 10px; width: 100%; }
+  .svc-h { flex: 1 0 0; align-items: center; }
+  .svc-tile { display: flex; align-items: center; justify-content: center; flex: none; width: 32px; height: 32px; border-radius: 4px; background: var(--jaune); box-shadow: 0 2px 4px 0 var(--encre-10); }
+  .svc-tile img { width: 24px; height: 24px; }
+  .svc-b { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; max-width: 260px; }
+  .btn-like { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 20px; border-radius: 5px; background: var(--encre); color: var(--creme); transition: background-color .4s var(--ease), color .4s var(--ease); }
+  .svc:hover .btn-like { background: var(--jaune); color: var(--encre); }
+  .btn-roll { display: flex; flex-direction: column; align-items: center; gap: 15px; height: 19.2px; overflow: clip; }
+  .btn-l { display: block; font: 600 16px/1.2 var(--display); letter-spacing: -0.01em; transition: transform .5s var(--ease); }
+  .svc:hover .btn-l { transform: translateY(calc(-100% - 15px)); }
+</style>

@@ -1,0 +1,52 @@
+---
+import Base from '../layouts/Base.astro';
+import HeroCard from '../components/HeroCard.astro';
+import IconRow from '../components/IconRow.astro';
+import CourseCard from '../components/CourseCard.astro';
+import CtaBand from '../components/CtaBand.astro';
+import PhotoStrip from '../components/PhotoStrip.astro';
+import { courses } from '../data/courses';
+---
+<Base>
+  <HeroCard
+    title="Courses designed for beginners to advanced"
+    lead="Choose from tailored courses that build your skills, boost your confidence, and get you test-ready"
+    image="/images/N8lzMA6Z25axOLTxwYUh8a5Xgo.jpg"
+    imageAlt="Student driving on the highway"
+    quote="“I had always been anxious about learning to drive, but from the very first lesson, my instructor made me feel safe, heard, and supported.”"
+    author="— Liam D., 27"
+    avatar="/images/0Pc81cXlvdXS8ngbNG1m5OuJQ.jpg"
+  />
+
+  <section class="clist">
+    <div class="clist-in">
+      <div class="clist-head">
+        <IconRow icons={['gear', 'seat', 'wheel', 'car', 'pump', 'plug', 'sun']} />
+        <h2 class="t-h2 center">Start your adventure towards driving excellence now</h2>
+      </div>
+      <div class="clist-grid">
+        {courses.map((c) => <CourseCard course={c} />)}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand title="Take the first step toward driving with confidence and freedom" label="Get Started Now" href="/contact-us" />
+  <PhotoStrip />
+</Base>
+
+<style>
+  .clist { display: flex; justify-content: center; padding: 130px 0; background: var(--creme); overflow: clip; }
+  .clist-in { display: flex; flex-direction: column; align-items: center; gap: 60px; width: 100%; max-width: 1210px; padding: 0 20px; }
+  .clist-head { display: flex; flex-direction: column; align-items: center; gap: 40px; max-width: 580px; }
+  .clist-grid { display: grid; grid-template-columns: 1fr 1fr; align-items: start; gap: 20px; width: 100%; padding-bottom: 20px; }
+  @media (max-width: 1279px) {
+    .clist { padding: 100px 0; }
+    .clist-in { gap: 50px; }
+  }
+  @media (max-width: 991px) {
+    .clist { padding: 80px 0; }
+    .clist-in { gap: 40px; }
+    .clist-head { gap: 30px; }
+    .clist-grid { grid-template-columns: 1fr; gap: 10px; padding-bottom: 10px; }
+  }
+</style>

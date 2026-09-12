@@ -1,0 +1,44 @@
+---
+/**
+ * Mosaïque de photos de l'en-tête « About » : deux blocs 4 × 4 collés aux bords,
+ * cases 90 px (tablette 60, mobile 40), certaines cases vides. Motif relevé sur le gabarit.
+ */
+interface Props { side: 'left' | 'right'; }
+const { side } = Astro.props;
+// colonnes (haut → bas), null = case vide
+const left: (string | null)[][] = [
+  ['/images/Bu9B06jSyW4KBJKZUkeDcPLDl0Q.jpg', null, '/images/iyzIsyjXZmc85G47CybNbDv0s.jpg', null],
+  [null, '/images/j7dpoJh6pOHcjN4iDn94MZ8.jpg', null, '/images/il7l9exshjLsrLNfOCc3csfkQd8.jpg'],
+  ['/images/7xYkEcLHhKbpUGHVmYKX7TOVlTw.jpg', null, '/images/EbB9eodnFNdqxCRRNatDbooI0.jpg', null],
+  [null, '/images/EFz7lf2u9q4l7aq0rqTjbaQGag.jpg', null, null],
+];
+const right: (string | null)[][] = [
+  [null, '/images/e8tPAo3i1hh4qT9IrxnUIgBvd4.jpg', null, null],
+  ['/images/pORbCaVsPNiIPlmLSwkFZgMhZGo.jpg', null, '/images/tLUQkKhOiZMfzQe7vR1MgchxJM.jpg', null],
+  [null, '/images/4IcybSoj2pHcKX0INPCRyzyLyAw.jpg', null, '/images/N8lzMA6Z25axOLTxwYUh8a5Xgo.jpg'],
+  ['/images/6RSAtxBVraACN1fQqbM7vZ58nQ.jpg', null, '/images/k5VOdEDPULOkyml2pItgwybkX0.jpg', null],
+];
+const cols = side === 'left' ? left : right;
+---
+<div class:list={['mosaic', `mosaic-${side}`]} aria-hidden="true">
+  {cols.map((col) => (
+    <div class="mosaic-col">
+      {col.map((src) => (
+        <div class:list={['tile', { empty: !src }]}>{src && <img src={src} alt="" loading="lazy" />}</div>
+      ))}
+    </div>
+  ))}
+</div>
+
+<style>
+  .mosaic { position: absolute; top: 120px; z-index: 1; display: grid; grid-template-columns: repeat(4, var(--cell, 90px)); gap: var(--gap, 8px); }
+  .mosaic-left { left: 0; }
+  .mosaic-right { right: 0; }
+  .mosaic-col { display: flex; flex-direction: column; gap: var(--gap, 8px); }
+  .tile { position: relative; width: var(--cell, 90px); height: var(--cell, 90px); border-radius: 3px; overflow: clip; }
+  .tile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .tile.empty { opacity: 0; }
+  .mosaic-right .mosaic-col:nth-child(4) .tile:nth-child(3) img { object-position: 100% 50%; }
+  @media (max-width: 1279px) { .mosaic { top: 100px; --cell: 60px; } }
+  @media (max-width: 991px) { .mosaic { top: 70px; --cell: 40px; --gap: 4px; } }
+</style>

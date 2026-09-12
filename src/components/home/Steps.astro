@@ -1,0 +1,61 @@
+---
+import IconRow from '../IconRow.astro';
+import Pixels from '../Pixels.astro';
+const steps = [
+  { n: '01', title: 'Sign up for classes', text: 'Choose your course and register online quickly and hassle-free' },
+  { n: '02', title: 'Practice on the road', text: 'Build your skills with supervised practice in real traffic conditions' },
+  { n: '03', title: 'Pass your test', text: 'Prepare thoroughly and ace your driving exam with our full support' },
+];
+---
+<section class="steps">
+  <div class="steps-in">
+    <div class="steps-head">
+      <IconRow icons={['mirror', 'pump', 'light', 'nav', 'gear', 'car', 'sun']} />
+      <h3 class="t-h3 hpic-title">Develop your driving skills with personalized <span class="hpic"><img src="/images/EbB9eodnFNdqxCRRNatDbooI0.jpg" alt="" /></span> lessons and a clear route to your license</h3>
+    </div>
+    <div class="steps-row">
+      {steps.map((s, i) => (
+        <div class:list={['step-cell', { mid: i === 1 }]}>
+          <div class:list={['step', i === 0 ? 'step-j' : 'step-s']}>
+            <div class="t-num">{s.n}</div>
+            <Pixels cell={20} corner="tr" />
+            <div class="step-t">
+              <h5 class="t-h5">{s.title}</h5>
+              <p class="t-body step-p">{s.text}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .steps { position: relative; display: flex; justify-content: center; background: var(--creme); }
+  /* bande sombre derrière le bas des cartes (elles débordent sur la section suivante) */
+  .steps::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 71px; background: var(--encre); }
+  .steps-in { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 60px; width: 100%; max-width: 1380px; padding: 0 20px; }
+  .steps-head { display: flex; flex-direction: column; align-items: center; gap: 40px; max-width: 660px; }
+  .steps-row { display: flex; align-items: flex-start; gap: 10px 20px; width: 100%; }
+  .step-cell { display: flex; align-items: center; justify-content: center; flex: 1 0 0; }
+  .step-cell.mid { padding-top: 180px; }
+  .step { position: relative; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 40px; width: 100%; padding: 30px; border-radius: 5px; overflow: clip; }
+  .step-j { background: var(--jaune); }
+  .step-s { background: var(--sable-2); }
+  .step-t { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
+  .step-p { max-width: 330px; color: var(--encre); }
+
+  @media (max-width: 1279px) {
+    .steps::after { height: 63px; }
+    .step-cell.mid { padding-top: 140px; }
+    .step { padding: 20px; }
+  }
+  @media (max-width: 991px) {
+    .steps::after { height: 90px; }
+    .steps-in { gap: 40px; }
+    .steps-head { gap: 30px; max-width: 570px; }
+    .steps-row { flex-wrap: wrap; justify-content: center; gap: 10px; max-width: 728px; }
+    .step-cell { flex: 0 0 100%; max-width: 380px; }
+    .step-cell.mid { padding-top: 0; }
+  }
+</style>

@@ -1,0 +1,21 @@
+---
+import Button from './Button.astro';
+interface Props { title: string; label: string; href: string; }
+const { title, label, href } = Astro.props;
+---
+<section class="band">
+  <div class="band-in">
+    <h2 class="t-h2 band-h">{title}</h2>
+    <Button href={href} label={label} />
+  </div>
+</section>
+
+<style>
+  .band { display: flex; justify-content: center; padding: 80px 0; background: var(--jaune); overflow: clip; }
+  .band-in { display: flex; align-items: flex-end; justify-content: space-between; width: 100%; max-width: 1210px; padding: 0 20px; }
+  .band-h { flex: 1 0 0; max-width: 650px; }
+  @media (max-width: 991px) {
+    .band-in { flex-wrap: wrap; justify-content: flex-start; gap: 30px 120px; }
+    .band-h { flex: 0 0 100%; }
+  }
+</style>

@@ -1,0 +1,66 @@
+---
+/**
+ * Bouton rond 40 px avec flèche qui glisse au survol (composants Framer « oX1Cx » / « eA8xK »
+ * et flèches du carrousel « xrCGi »). Deux copies de l'icône dans une fenêtre de 12 px :
+ * la première est hors champ et entre au survol pendant que l'autre sort.
+ */
+interface Props {
+  href?: string;
+  variant?: 'encre' | 'jaune' | 'creme';
+  icon?: 'arrow' | 'chevron';
+  flip?: boolean;        // chevron : pointe vers la droite (suivant)
+  label?: string;
+  class?: string;
+  as?: 'a' | 'span' | 'button';
+}
+const { href, variant = 'encre', icon = 'arrow', flip = false, label = 'Open', class: className, as } = Astro.props;
+const Tag = as ?? (href ? 'a' : 'span');
+---
+<Tag
+  href={href}
+  type={Tag === 'button' ? 'button' : undefined}
+  class:list={['abtn', `abtn-${variant}`, `abtn-${icon}`, { flip }, className]}
+  aria-label={Tag !== 'span' ? label : undefined}
+>
+  <span class="abtn-clip">
+    <i class:list={['ico', `i-${icon}`]}></i>
+    <i class:list={['ico', `i-${icon}`]}></i>
+  </span>
+</Tag>
+
+<style>
+  .abtn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    cursor: pointer;
+    transition: background-color .4s var(--ease), color .4s var(--ease);
+  }
+  .abtn-encre { background: var(--encre); color: var(--creme); }
+  .abtn-jaune { background: var(--jaune); color: var(--encre); }
+  .abtn-creme { background: var(--creme); color: var(--encre); }
+  .abtn-clip {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 12px;
+    height: 12px;
+    overflow: clip;
+  }
+  .abtn-clip .ico { flex: none; width: 12px; height: 12px; transition: translate .5s var(--ease); }
+
+  /* flèche : la copie cachée est à gauche et glisse vers la droite */
+  .abtn-arrow .abtn-clip { justify-content: flex-end; }
+  .abtn-arrow:hover .ico, :global(a:hover) > .abtn-arrow .ico { translate: 22px 0; }
+
+  /* chevron (carrousel) : pointe vers la gauche, la copie cachée est à droite */
+  .abtn-chevron .abtn-clip { justify-content: flex-start; }
+  .abtn-chevron .ico { rotate: 90deg; }
+  .abtn-chevron:hover .ico { translate: -22px 0; }
+  .flip { rotate: 180deg; }
+</style>

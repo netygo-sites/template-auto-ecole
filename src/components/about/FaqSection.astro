@@ -1,0 +1,40 @@
+---
+import Faq from '../Faq.astro';
+import Pixels from '../Pixels.astro';
+import { faq } from '../../data/faq';
+---
+<section class="faqs">
+  <div class="faqs-in">
+    <div class="tag faqs-tag"><i class="ico i-square dot"></i><h6 class="t-h6m">FAQ</h6></div>
+    <div class="faqs-img cover">
+      <img src="/images/N8lzMA6Z25axOLTxwYUh8a5Xgo.jpg" alt="Student driving on the highway" />
+      <Pixels cell={40} mobileCell={16} corner="br" />
+    </div>
+    <div class="faqs-list">
+      <Faq items={faq.slice(0, 4)} />
+    </div>
+  </div>
+</section>
+
+<style>
+  .faqs { display: flex; justify-content: center; padding: 130px 0; background: var(--creme); overflow: clip; }
+  .faqs-in { display: grid; grid-template-columns: 1fr 1fr; grid-template-areas: 'img tag' 'img list'; grid-template-rows: auto 1fr; align-items: start; column-gap: 100px; width: 100%; max-width: 1210px; padding: 0 20px; }
+  .faqs-img { grid-area: img; height: 650px; border-radius: 5px; }
+  .faqs-img::after { content: ""; position: absolute; inset: 0; z-index: 2; border: 1px solid var(--creme); border-radius: inherit; pointer-events: none; }
+  .faqs-img img { object-position: 20% 50%; }
+  .tag { display: flex; align-items: center; gap: 10px; }
+  .faqs-tag { grid-area: tag; }
+  .faqs-list { grid-area: list; align-self: end; display: flex; align-items: flex-start; width: 100%; }
+
+  @media (max-width: 1279px) {
+    .faqs { padding: 100px 0; }
+    .faqs-in { column-gap: 60px; }
+    .faqs-img { height: 600px; }
+  }
+  @media (max-width: 991px) {
+    .faqs { padding: 80px 0; }
+    .faqs-in { grid-template-columns: 1fr; grid-template-areas: 'tag' 'img' 'list'; grid-template-rows: auto; row-gap: 40px; }
+    .faqs-img { height: 360px; }
+    .faqs-list { align-self: start; }
+  }
+</style>

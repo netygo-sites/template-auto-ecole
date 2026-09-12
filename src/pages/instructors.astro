@@ -1,0 +1,57 @@
+---
+import Base from '../layouts/Base.astro';
+import HeroCard from '../components/HeroCard.astro';
+import IconRow from '../components/IconRow.astro';
+import InstructorCard from '../components/InstructorCard.astro';
+import Trusted from '../components/home/Trusted.astro';
+import TestiCarousel from '../components/TestiCarousel.astro';
+import CtaBand from '../components/CtaBand.astro';
+import PhotoStrip from '../components/PhotoStrip.astro';
+import { instructors } from '../data/instructors';
+---
+<Base>
+  <HeroCard
+    title="Meet the team behind your driving success"
+    lead="Discover the dedicated professionals who make your driving journey smooth, safe, and fulfilling"
+    image="/images/eVkvt7iC0iJQWaVB4IpNfHxRc.jpg"
+    imageAlt="Winding road through the forest"
+    quote="“My instructor was clear, calm, and endlessly patient. That alone made all the difference. I left a confident, capable driver ready for the road.”"
+    author="— Anna K., 31"
+    avatar="/images/pORbCaVsPNiIPlmLSwkFZgMhZGo.jpg"
+  />
+
+  <section class="ilist">
+    <div class="ilist-in">
+      <div class="ilist-head">
+        <IconRow icons={['gear', 'seat', 'wheel', 'car', 'pump', 'plug', 'sun']} />
+        <h2 class="t-h2 center">Instructors who make you feel safe on the road</h2>
+      </div>
+      <div class="ilist-grid">
+        {instructors.map((i) => <InstructorCard instructor={i} />)}
+      </div>
+    </div>
+  </section>
+
+  <Trusted />
+  <TestiCarousel />
+  <CtaBand title="Take the first step toward driving with confidence and freedom" label="Get Started Now" href="/contact-us" />
+  <PhotoStrip />
+</Base>
+
+<style>
+  .ilist { display: flex; justify-content: center; padding: 130px 0; background: var(--creme); overflow: clip; }
+  .ilist-in { display: flex; flex-direction: column; align-items: center; gap: 60px; width: 100%; max-width: 1210px; padding: 0 20px; }
+  .ilist-head { display: flex; flex-direction: column; align-items: center; gap: 40px; max-width: 510px; }
+  .ilist-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; width: 100%; padding-bottom: 40px; }
+  @media (max-width: 1279px) {
+    .ilist { padding: 100px 0; }
+    .ilist-in { gap: 50px; }
+    .ilist-grid { gap: 40px 20px; }
+  }
+  @media (max-width: 991px) {
+    .ilist { padding: 80px 0; }
+    .ilist-in { gap: 40px; }
+    .ilist-head { gap: 30px; max-width: 480px; }
+    .ilist-grid { grid-template-columns: 1fr; gap: 40px 20px; }
+  }
+</style>

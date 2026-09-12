@@ -1,0 +1,53 @@
+---
+/**
+ * Accordéon FAQ (composant Framer « 012Yu ») : filets encre-20, question h5 + pastille ronde
+ * (encre / chevron crème fermée, jaune / chevron encre ouverte), réponse limitée à 90 %.
+ */
+import type { FaqItem } from '../data/faq';
+interface Props { items: FaqItem[]; openFirst?: boolean; class?: string; }
+const { items, openFirst = true, class: className } = Astro.props;
+---
+<div class:list={['faq', className]} data-faq>
+  <div class="faq-line"></div>
+  {items.map((it, i) => (
+    <>
+      <div class:list={['faq-item', { open: openFirst && i === 0 }]}>
+        <button type="button" class="faq-q" aria-expanded={openFirst && i === 0 ? 'true' : 'false'}>
+          <h5 class="t-h5 faq-t">{it.q}</h5>
+          <span class="faq-c"><i class="ico i-chevron"></i></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-in"><p class="t-body">{it.a}</p></div></div>
+      </div>
+      <div class="faq-line"></div>
+    </>
+  ))}
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-faq]').forEach((root) => {
+    root.querySelectorAll<HTMLButtonElement>('.faq-q').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const item = btn.parentElement!;
+        const open = item.classList.toggle('open');
+        btn.setAttribute('aria-expanded', String(open));
+      });
+    });
+  });
+</script>
+
+<style>
+  .faq { display: flex; flex-direction: column; align-items: stretch; width: 100%; }
+  .faq-line { width: 100%; height: 1px; background: var(--encre-20); }
+  .faq-item { display: flex; flex-direction: column; align-items: flex-start; padding: 30px 0; }
+  .faq-q { display: flex; align-items: center; gap: 25px; width: 100%; text-align: left; }
+  .faq-t { flex: 1 0 0; transition: color .3s var(--ease); }
+  .faq-c { display: flex; align-items: center; justify-content: center; flex: none; width: 40px; height: 40px; border-radius: 100%; background: var(--encre); color: var(--creme); transition: background-color .3s var(--ease), color .3s var(--ease); }
+  .faq-c .ico { width: 16px; height: 10.67px; transition: transform .3s var(--ease); }
+  .faq-a { display: grid; grid-template-rows: 0fr; width: 100%; transition: grid-template-rows .35s var(--ease); }
+  .faq-a-in { overflow: hidden; }
+  .faq-a-in p { max-width: 90%; padding-top: 15px; }
+  .faq-item.open .faq-t { color: var(--graphite); }
+  .faq-item.open .faq-c { background: var(--jaune); color: var(--encre); }
+  .faq-item.open .faq-c .ico { transform: rotate(180deg); }
+  .faq-item.open .faq-a { grid-template-rows: 1fr; }
+</style>

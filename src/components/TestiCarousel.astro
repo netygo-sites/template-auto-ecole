@@ -1,0 +1,96 @@
+---
+/** Carrousel de témoignages (page Instructors) : deux cartes visibles, flèches en tête, défilement par carte. */
+import ArrowButton from './ArrowButton.astro';
+interface Props { dark?: boolean; }
+const slides = [
+  { quote: 'I had zero experience, but GearUp made learning fun and easy. The instructors are super patient and really supportive throughout the whole process.', author: '— Liam D., 27', avatar: '/images/0Pc81cXlvdXS8ngbNG1m5OuJQ.jpg' },
+  { quote: 'From booking to final lesson, everything was incredibly smooth and efficient. I always felt safe and deeply motivated. Great school with great people! Really recommend!', author: '— Anna K., 31', avatar: '/images/pORbCaVsPNiIPlmLSwkFZgMhZGo.jpg' },
+  { quote: "Clear instructions, modern cars, and flexible scheduling. I couldn't have asked for a better overall learning experience. Highly recommended for all and beginners!", author: '— Emily R., 43', avatar: '/images/k5VOdEDPULOkyml2pItgwybkX0.jpg' },
+  { quote: 'I passed my test on the first try thanks to GearUp! The lessons were well-structured and gave me the confidence I needed on the road. Highly recommend!', author: '— Maya K., 32', avatar: '/images/OJBh3qFoWTd23QTIbh5iWbFsUCk.jpg' },
+];
+---
+<section class="tc" data-carousel>
+  <div class="tc-in">
+    <div class="tc-head">
+      <div class="tag"><i class="ico i-square dot"></i><h6 class="t-h6m">Testimonials</h6></div>
+      <div class="tc-arrows hide-m">
+        <ArrowButton as="button" icon="chevron" label="Previous" class="prev" />
+        <ArrowButton as="button" icon="chevron" flip label="Next" class="next" />
+      </div>
+    </div>
+    <div class="tc-view">
+      <div class="tc-track" data-track>
+        {slides.map((s) => (
+          <div class="tcard">
+            <div class="tcard-t">
+              <div class="stars" aria-label="5 stars">{[0, 1, 2, 3, 4].map(() => <i class="ico i-star star"></i>)}</div>
+              <div class="t-big">{s.quote}</div>
+            </div>
+            <div class="tcard-a">
+              <span class="tcard-av"><img src={s.avatar} alt="" /></span>
+              <div class="t-quote"><em>{s.author}</em></div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+    <div class="tc-arrows show-m">
+      <ArrowButton as="button" icon="chevron" label="Previous" class="prev" />
+      <ArrowButton as="button" icon="chevron" flip label="Next" class="next" />
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-carousel]').forEach((root) => {
+    const track = root.querySelector<HTMLElement>('[data-track]')!;
+    const cards = track.children;
+    let i = 0;
+    const visible = () => (innerWidth <= 991 ? 1 : 2);
+    const go = (n: number) => {
+      i = Math.max(0, Math.min(cards.length - visible(), n));
+      const c = cards[0] as HTMLElement;
+      const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+      track.style.transform = `translateX(${-(c.offsetWidth + gap) * i}px)`;
+      root.querySelectorAll('.prev').forEach((b) => b.classList.toggle('is-off', i === 0));
+      root.querySelectorAll('.next').forEach((b) => b.classList.toggle('is-off', i >= cards.length - visible()));
+    };
+    root.querySelectorAll('.prev').forEach((b) => b.addEventListener('click', () => go(i - 1)));
+    root.querySelectorAll('.next').forEach((b) => b.addEventListener('click', () => go(i + 1)));
+    addEventListener('resize', () => go(i));
+    go(0);
+  });
+</script>
+
+<style>
+  .tc { display: flex; justify-content: center; padding: 130px 0; background: var(--creme); overflow: clip; }
+  .tc-in { display: flex; flex-direction: column; align-items: flex-start; gap: 60px; width: 100%; max-width: 1210px; padding: 0 20px; }
+  .tc-head { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+  .tag { display: flex; align-items: center; gap: 10px; }
+  .tc-arrows { display: flex; align-items: center; justify-content: flex-end; gap: 12px; }
+  .tc-view { width: 100%; }
+  .tc-track { display: flex; align-items: center; gap: 80px; width: 100%; transition: transform .6s var(--ease); }
+  .tcard { display: flex; flex-direction: column; align-items: flex-start; gap: 30px; flex: none; width: 540px; }
+  .tcard-t { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; }
+  .stars { display: flex; align-items: center; gap: 6px; }
+  .star { width: 18px; height: 20px; color: var(--jaune); }
+  .tcard-a { display: flex; align-items: flex-end; gap: 20px; width: 100%; }
+  .tcard-av { flex: none; width: 60px; height: 60px; border-radius: 3px; overflow: clip; }
+  .tcard-av img { width: 100%; height: 100%; object-fit: cover; }
+  .tcard-a .t-quote { flex: 1 0 0; }
+
+  @media (max-width: 1279px) {
+    .tc { padding: 100px 0; }
+    .tc-in { gap: 50px; }
+    .tc-track { gap: 60px; }
+    .tcard { width: calc((100% - 60px) / 2); }
+  }
+  @media (max-width: 991px) {
+    .tc { padding: 80px 0; }
+    .tc-in { gap: 40px; }
+    .tc-track { align-items: flex-start; gap: 40px; }
+    .tcard { width: 100%; }
+    .tc-arrows.show-m { display: flex !important; justify-content: flex-start; }
+  }
+  :global(.abtn.is-off) { opacity: .3; }
+</style>

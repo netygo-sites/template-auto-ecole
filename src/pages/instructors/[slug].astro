@@ -1,0 +1,130 @@
+---
+import Base from '../../layouts/Base.astro';
+import Button from '../../components/Button.astro';
+import Pixels from '../../components/Pixels.astro';
+import InstructorCard from '../../components/InstructorCard.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import PhotoStrip from '../../components/PhotoStrip.astro';
+import '../../styles/richtext.css';
+import { instructors } from '../../data/instructors';
+import { instructorDetails, defaultInstructorDetail } from '../../data/instructorDetails';
+
+export function getStaticPaths() {
+  return instructors.map((i) => ({ params: { slug: i.slug }, props: { instructor: i } }));
+}
+const { instructor } = Astro.props;
+const d = instructorDetails[instructor.slug] ?? defaultInstructorDetail;
+const others = instructors.filter((i) => i.slug !== instructor.slug).slice(0, 3);
+---
+<Base title={`${instructor.name} — GearUp`} description={d.bio}>
+  <section class="id-hero">
+    <div class="id-hero-in">
+      <div class="id-photo cover">
+        <img src={instructor.image} alt={instructor.name} />
+        <Pixels cell={40} corner="bl" color="var(--encre)" />
+      </div>
+      <div class="id-t">
+        <div class="id-tt">
+          <p class="t-lead id-role">{instructor.role}</p>
+          <div class="id-th">
+            <h1 class="t-h1 id-h1">{instructor.name}</h1>
+            <p class="t-body id-bio">{d.bio}</p>
+          </div>
+        </div>
+        <div class="id-b">
+          <ul class="id-list">
+            {d.highlights.map((h) => <li class="id-li"><span class="id-check"><i class="ico i-check"></i></span><p class="t-lead id-li-t">{h}</p></li>)}
+          </ul>
+          <Button href="/contact-us" label="Free Consultation" variant="jaune" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="id-body">
+    <div class="id-body-in">
+      <article class="rich id-article">
+        <h2>Teaching philosophy</h2>
+        <p>{d.philosophy}</p>
+        <h3>Approach to lessons</h3>
+        <p>{d.approachIntro}</p>
+        <ul>{d.approach.map((li) => <li><p>{li}</p></li>)}</ul>
+        <h3>Focus areas</h3>
+        <p>{d.focusIntro}</p>
+        <ul>{d.focus.map((li) => <li><p>{li}</p></li>)}</ul>
+        <div class="spacer"></div>
+        <blockquote><h4>{d.quote}</h4></blockquote>
+        <h3>Student results<br /><br /></h3>
+        <p>{d.results}</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="id-more">
+    <div class="id-more-in">
+      <div class="id-more-head">
+        <div class="id-more-t">
+          <h2 class="t-h2">Instructors who make you feel safe on the road</h2>
+          <p class="t-lead">Each member of our team brings a calm presence, deep knowledge, and a passion for helping students</p>
+        </div>
+        <Button href="/instructors" label="All Instructors" variant="jaune" class="hide-m" />
+      </div>
+      <div class="id-cards">
+        {others.map((i, n) => <InstructorCard instructor={i} class={n === 2 ? 'hide-m' : undefined} />)}
+      </div>
+      <Button href="/instructors" label="All Instructors" variant="jaune" class="show-m" />
+    </div>
+  </section>
+
+  <CtaBand title="Take the first step toward driving with confidence and freedom" label="Get Started Now" href="/contact-us" />
+  <PhotoStrip />
+</Base>
+
+<style>
+  .id-hero { display: flex; justify-content: center; padding: 180px 0 130px; background: var(--encre); overflow: clip; }
+  .id-hero-in { display: flex; align-items: center; gap: 120px; width: 100%; max-width: 1210px; padding: 0 20px; }
+  .id-photo { flex: 1 0 0; max-width: 468px; height: 450px; border-radius: 5px; }
+  .id-t { display: flex; flex-direction: column; align-items: flex-start; gap: 30px; flex: 1 0 0; }
+  .id-tt { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; }
+  .id-role { color: var(--creme); }
+  .id-th { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; }
+  .id-h1 { color: var(--creme); }
+  .id-bio { max-width: 490px; color: var(--gris); }
+  .id-b { display: flex; flex-direction: column; align-items: flex-start; gap: 40px; width: 100%; }
+  .id-list { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; width: 100%; }
+  .id-li { display: flex; align-items: center; gap: 12px; width: 100%; }
+  .id-check { display: flex; align-items: center; justify-content: center; flex: none; width: 24px; height: 24px; border-radius: 100%; background: var(--jaune); color: var(--encre); }
+  .id-check .ico { width: 10px; height: 10px; }
+  .id-li-t { flex: 1 0 0; color: var(--gris); }
+
+  .id-body { display: flex; justify-content: center; padding: 130px 0 0; background: var(--creme); overflow: clip; }
+  .id-body-in { display: flex; flex-direction: column; align-items: flex-start; gap: 15px; width: 100%; max-width: 1210px; padding: 0 20px; }
+  .id-article { max-width: 920px; }
+
+  .id-more { display: flex; justify-content: center; padding: 130px 0; background: var(--creme); overflow: clip; }
+  .id-more-in { display: flex; flex-direction: column; align-items: flex-start; gap: 60px; width: 100%; max-width: 1210px; padding: 0 20px; }
+  .id-more-head { display: flex; align-items: flex-end; justify-content: space-between; width: 100%; }
+  .id-more-t { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; flex: 1 0 0; max-width: 480px; }
+  .id-cards { display: flex; align-items: flex-start; gap: 40px; width: 100%; }
+
+  @media (max-width: 1279px) {
+    .id-hero { padding: 160px 0 100px; }
+    .id-hero-in { gap: 80px; }
+    .id-body { padding-top: 100px; }
+    .id-more { padding: 100px 0; }
+    .id-more-in { gap: 50px; }
+    .id-cards { gap: 20px; }
+  }
+  @media (max-width: 991px) {
+    .id-hero { padding: 120px 0 80px; }
+    .id-hero-in { flex-wrap: wrap; gap: 40px 60px; }
+    .id-photo { flex: 0 0 100%; max-width: none; height: 350px; }
+    .id-t { flex: 0 0 100%; }
+    .id-body { padding-top: 80px; }
+    .id-more { padding: 80px 0; }
+    .id-more-in { gap: 40px; }
+    .id-more-head { flex-wrap: wrap; gap: 30px 120px; }
+    .id-cards { flex-wrap: wrap; gap: 40px 20px; }
+    .id-cards :global(.icard) { flex: 0 0 100%; }
+  }
+</style>

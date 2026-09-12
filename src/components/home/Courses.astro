@@ -1,0 +1,36 @@
+---
+import Button from '../Button.astro';
+import CourseCard from '../CourseCard.astro';
+import { courses } from '../../data/courses';
+---
+<section class="courses">
+  <div class="courses-in">
+    <div class="courses-head">
+      <h2 class="t-h2 courses-h">Everything you need to succeed behind the wheel</h2>
+      <Button href="/courses" label="View All Courses" variant="jaune" class="hide-m" />
+    </div>
+    <div class="cgrid">
+      {courses.slice(0, 4).map((c) => <CourseCard course={c} />)}
+    </div>
+    <Button href="/courses" label="View All Courses" variant="jaune" class="show-m" />
+  </div>
+</section>
+
+<style>
+  .courses { display: flex; justify-content: center; padding: 0 0 130px; background: var(--creme); overflow: clip; }
+  .courses-in { display: flex; flex-direction: column; align-items: flex-start; gap: 60px; width: 100%; max-width: 1210px; padding: 0 20px; }
+  .courses-head { display: flex; align-items: flex-end; justify-content: space-between; width: 100%; }
+  .courses-h { flex: 1 0 0; max-width: 520px; }
+  .cgrid { display: grid; grid-template-columns: 1fr 1fr; align-items: start; gap: 20px; width: 100%; }
+
+  @media (max-width: 1279px) {
+    .courses { padding-bottom: 100px; }
+    .courses-in { gap: 50px; }
+  }
+  @media (max-width: 991px) {
+    .courses { padding-bottom: 80px; }
+    .courses-in { gap: 40px; }
+    .courses-head { flex-wrap: wrap; }
+    .cgrid { grid-template-columns: 1fr; gap: 10px; }
+  }
+</style>

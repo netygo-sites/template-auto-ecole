@@ -1,0 +1,63 @@
+---
+/**
+ * En-tête des pages Courses / Instructors : titre + accroche, carte témoignage jaune
+ * ancrée à droite qui déborde sur la photo pleine largeur.
+ */
+import Pixels from './Pixels.astro';
+interface Props {
+  title: string;
+  lead: string;
+  image: string;
+  imageAlt?: string;
+  quote: string;
+  author: string;
+  avatar: string;
+}
+const { title, lead, image, imageAlt = '', quote, author, avatar } = Astro.props;
+---
+<section class="hc">
+  <div class="hc-top">
+    <div class="hc-text">
+      <h1 class="t-h1">{title}</h1>
+      <p class="t-lead hc-lead">{lead}</p>
+    </div>
+    <div class="hc-card">
+      <Pixels cell={20} corner="tr" />
+      <div class="hc-card-in">
+        <h6 class="t-h6m hc-quote">{quote}</h6>
+        <div class="hc-author">
+          <span class="hc-avatar"><img src={avatar} alt="" /></span>
+          <h6 class="t-h6m hc-name">{author}</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hc-img cover"><img src={image} alt={imageAlt} /></div>
+</section>
+
+<style>
+  .hc { display: flex; flex-direction: column; align-items: center; gap: 80px; padding-top: 180px; background: var(--creme); overflow: clip; }
+  .hc-top { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 10px; width: 100%; max-width: 1210px; padding: 0 20px; }
+  .hc-text { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; max-width: 650px; }
+  .hc-lead { max-width: 430px; }
+  .hc-card { position: absolute; right: 20px; bottom: -210px; z-index: 2; display: flex; align-items: center; justify-content: center; width: 30%; max-width: 360px; padding: 80px 40px 40px; background: var(--jaune); }
+  .hc-card-in { display: flex; flex-direction: column; align-items: center; gap: 20px; flex: 1 0 0; }
+  .hc-quote { width: 100%; white-space: pre-wrap; }
+  .hc-author { display: flex; align-items: flex-end; gap: 20px; width: 100%; }
+  .hc-avatar { flex: none; width: 60px; height: 60px; border-radius: 3px; overflow: clip; }
+  .hc-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .hc-name { flex: 1 0 0; }
+  .hc-img { width: 100%; height: 550px; }
+
+  @media (max-width: 1279px) {
+    .hc { gap: 60px; padding-top: 160px; }
+    .hc-card { max-width: 320px; padding: 80px 20px 40px; }
+    .hc-img { height: 400px; }
+  }
+  @media (max-width: 991px) {
+    .hc { gap: 80px; padding-top: 120px; }
+    .hc-text { max-width: none; }
+    .hc-card { left: 20px; right: 19px; width: auto; max-width: none; bottom: -296px; padding: 70px 20px 20px; }
+    .hc-img { height: 500px; }
+  }
+</style>

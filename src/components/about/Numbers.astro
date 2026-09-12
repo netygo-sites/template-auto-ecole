@@ -1,0 +1,60 @@
+---
+import Button from '../Button.astro';
+const stats = [
+  { n: '22', label: 'Instructors' },
+  { n: '18', label: 'Training cars' },
+  { n: '14', label: 'Years of expertise' },
+];
+---
+<section class="numbers">
+  <video class="numbers-video" src="/videos/3bvDjQ8cl0uBvJf8GVji10HVA90.mp4" poster="/images/X0dO2Kcmy01o1KK4jIlaYKOiGiE.png" autoplay muted loop playsinline></video>
+  <div class="numbers-shade"></div>
+  <div class="numbers-in">
+    <div class="numbers-l">
+      <h2 class="t-h2 numbers-h">Numbers that reflect our passion</h2>
+      <Button href="/pricing" label="Choose Your Plan" variant="jaune" />
+    </div>
+    <div class="numbers-stats">
+      {stats.map((s) => (
+        <div class="nstat">
+          <div class="nstat-n"><span class="t-num">{s.n}</span><i class="ico i-plus plus"></i></div>
+          <h6 class="t-h6m nstat-l">{s.label}</h6>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .numbers { position: relative; display: flex; justify-content: center; align-items: flex-start; padding-bottom: 130px; overflow: clip; background: var(--encre); }
+  .numbers-video { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; object-fit: cover; }
+  .numbers-shade { position: absolute; inset: 0; z-index: 2; background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, .9) 100%); }
+  .numbers-in { position: relative; z-index: 2; display: flex; align-items: flex-end; justify-content: space-between; width: 100%; max-width: 1210px; height: 570px; padding: 0 20px; }
+  .numbers-l { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; flex: 1 0 0; max-width: 400px; }
+  .numbers-h { color: var(--creme); }
+  .numbers-stats { display: flex; align-items: center; justify-content: center; gap: 40px; flex: 1 0 0; max-width: 530px; }
+  .nstat { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+  .nstat + .nstat { padding-left: 40px; border-left: 1px solid var(--creme); }
+  .nstat-n { display: flex; align-items: flex-start; white-space: nowrap; }
+  .nstat-n .t-num { color: var(--creme); }
+  .plus { width: 28px; height: 28px; color: var(--jaune); }
+  .nstat-l { color: var(--creme); white-space: nowrap; }
+
+  @media (max-width: 1279px) {
+    .numbers { padding-bottom: 100px; }
+    .numbers-in { height: 540px; }
+    .numbers-stats { gap: 20px; max-width: 418px; }
+    .nstat + .nstat { padding-left: 20px; }
+    .plus { width: 24px; height: 24px; }
+  }
+  @media (max-width: 991px) {
+    .numbers { padding-bottom: 80px; }
+    .numbers-in { flex-direction: column; align-items: stretch; justify-content: flex-end; gap: 60px; height: 490px; }
+    .numbers-l { flex-direction: row; flex-wrap: wrap; align-items: flex-end; gap: 20px 40px; flex: none; max-width: none; }
+    .numbers-h { flex: 1 0 0; max-width: 320px; }
+    .numbers-stats { flex-wrap: wrap; justify-content: flex-start; gap: 30px 20px; flex: none; max-width: none; }
+    .nstat { flex: 1 0 0; padding-left: 20px; border-left: 1px solid var(--creme); }
+    .nstat:nth-child(3) { flex: 0 0 100%; }
+    .plus { width: 14px; height: 14px; }
+  }
+</style>

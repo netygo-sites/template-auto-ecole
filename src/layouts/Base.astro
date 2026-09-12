@@ -1,0 +1,47 @@
+---
+import '../styles/global.css';
+import '../styles/icons.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+const { title = site.title, description = site.description } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <link rel="icon" href="/images/RaMOWwXgo06xYUnXkV0lOg9K9ys.png" media="(prefers-color-scheme: light)" />
+    <link rel="icon" href="/images/x9vgTKsQqTz6woTWjMWLNqAcwkc.png" media="(prefers-color-scheme: dark)" />
+    <link rel="apple-touch-icon" href="/images/7pdkQ6uZzwqFuQFFYKp9eXC8.png" />
+  </head>
+  <body>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+    <script>
+      // Apparition au défilement (équivalent des effets « appear » du template : fondu + translation de 30 px)
+      const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const targets = document.querySelectorAll<HTMLElement>('main section > div > *:not(.px), main section > video, footer > div > *');
+      if (!reduce && 'IntersectionObserver' in window) {
+        targets.forEach((el, i) => { if (!el.closest('.px')) { el.classList.add('appear'); el.style.transitionDelay = `${(i % 4) * 60}ms`; } });
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+        }, { rootMargin: '0px 0px -8% 0px' });
+        document.querySelectorAll('.appear').forEach((el) => io.observe(el));
+      }
+    </script>
+  </body>
+</html>

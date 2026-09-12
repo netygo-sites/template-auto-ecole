@@ -1,0 +1,119 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Button from '../components/Button.astro';
+import StepByStep from '../components/StepByStep.astro';
+import FaqSection from '../components/about/FaqSection.astro';
+import CtaBand from '../components/CtaBand.astro';
+import PhotoStrip from '../components/PhotoStrip.astro';
+import { plans } from '../data/pricing';
+const feats = [
+  { icon: '/images/t4u4znYh6qGeaorQM3ZiBqhPfZQ.svg', title: 'Flexible options', text: 'From single lessons to full packages, choose what you fit' },
+  { icon: '/images/eMXiJi8Zi5QvUUfLWAzXwlb4.svg', title: 'Modern cars', text: 'Train in well-maintained, up-to-date cars with full safety' },
+  { icon: '/images/VdjqZScJQMih4ExhFDWyGNW2Rzo.svg', title: 'Certified team', text: 'All plans include lessons with licensed, friendly instructors' },
+  { icon: '/images/tDeS9pOAvjWR6eeh5p60nX8z2xQ.svg', title: 'Extra support', text: 'Access helpful resources, from theory prep to test simulations' },
+];
+---
+<Base>
+  <PageHero tag="Pricing" title="Choose the plan that fits your driving goals" lead="Take one step closer to achieving your driving goals with flexible plans tailored to your pace and progress" image="/images/T6ELpDi8eLTTUAaqPznTjabzNA.jpg" textMax="640px" />
+
+  <section class="plans">
+    <div class="plans-in">
+      {plans.map((p) => (
+        <div class:list={['plan', { popular: p.popular }]}>
+          {p.popular && <span class="plan-badge"><i class="ico i-award"></i></span>}
+          <div class="plan-head">
+            <div class="plan-name">
+              <h4 class="t-h4 center plan-h">{p.name}</h4>
+              <p class="t-lead center plan-tag">{p.tagline}</p>
+            </div>
+            <div class="plan-price"><span class="t-price plan-amount">{p.price}</span><p class="t-lead plan-per">/month</p></div>
+          </div>
+          <div class="plan-line"></div>
+          <div class="plan-body">
+            <ul class="plan-list">
+              {p.features.map((f) => <li class="plan-f"><i class="ico i-square plan-dot"></i><p class="t-body plan-ft">{f}</p></li>)}
+            </ul>
+            <Button href="/contact-us" label="Choose This Plan" variant={p.popular ? 'jaune' : 'encre'} class="plan-btn" />
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="pfeat">
+    <div class="pfeat-in">
+      <div class="pfeat-head">
+        <h2 class="t-h2">Choose a plan that accelerates your progress</h2>
+        <p class="t-lead">At GearUp, we believe learning to drive should be flexible, accessible, and tailored to your pace and goals</p>
+      </div>
+      <div class="pfeat-row">
+        {feats.map((f) => (
+          <div class="pf">
+            <div class="pf-top"><img src={f.icon} alt="" width="40" height="40" /><h5 class="t-h5 pf-h">{f.title}</h5></div>
+            <p class="t-body pf-p">{f.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <StepByStep />
+  <FaqSection />
+  <CtaBand title="Take the first step toward driving with confidence and freedom" label="Get Started Now" href="/contact-us" />
+  <PhotoStrip />
+</Base>
+
+<style>
+  .plans { display: flex; justify-content: center; padding: 130px 0; background: var(--creme); overflow: clip; }
+  .plans-in { display: flex; align-items: flex-end; justify-content: center; gap: 24px; width: 100%; max-width: 1210px; padding: 0 20px; }
+  .plan { position: relative; display: flex; flex-direction: column; align-items: center; gap: 30px; flex: 1 0 0; padding: 40px 0; border-radius: 5px; background: var(--sable-2); }
+  .plan.popular { padding: 50px 0 40px; background: var(--encre); }
+  .plan-badge { position: absolute; top: -24px; left: 50%; display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; margin-left: -24px; border-radius: 4px; background: var(--jaune); color: var(--encre); box-shadow: 0 2px 4px 0 var(--encre-10); }
+  .plan-badge .ico { width: 24px; height: 24px; }
+  .plan-head { display: flex; flex-direction: column; align-items: center; gap: 20px; width: 100%; padding: 0 40px; }
+  .plan-name { display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; }
+  .plan-price { display: flex; align-items: flex-end; }
+  .plan-amount { font-size: 50px; line-height: 1; }
+  .plan-per { color: var(--encre); }
+  .plan-line { width: 100%; height: 1px; background: var(--encre-20); }
+  .plan-body { display: flex; flex-direction: column; align-items: center; gap: 30px; width: 100%; padding: 0 40px; }
+  .plan-list { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 100%; }
+  .plan-f { display: flex; align-items: center; gap: 12px; width: 100%; }
+  .plan-dot { width: 8px; height: 8px; color: var(--jaune); }
+  .plan-ft { flex: 1 0 0; }
+  .plan :global(.plan-btn) { width: 100%; }
+  .popular .plan-h, .popular .plan-amount, .popular .plan-per { color: var(--creme); }
+  .popular .plan-tag, .popular .plan-ft { color: var(--gris); }
+  .popular .plan-line { background: var(--creme-20); }
+
+  .pfeat { display: flex; justify-content: center; padding: 0 0 130px; background: var(--creme); overflow: clip; }
+  .pfeat-in { display: flex; flex-direction: column; align-items: flex-start; gap: 60px; width: 100%; max-width: 1210px; padding: 0 20px; }
+  .pfeat-head { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; max-width: 510px; }
+  .pfeat-row { display: flex; align-items: center; gap: 60px; width: 100%; }
+  .pf { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; flex: 1 0 0; }
+  .pf-top { display: flex; align-items: center; gap: 12px; width: 100%; }
+  .pf-top img { width: 40px; height: 40px; }
+  .pf-h { flex: 1 0 0; }
+  .pf-p { max-width: 300px; }
+
+  @media (max-width: 1279px) {
+    .plans { padding: 100px 0; }
+    .plans-in { gap: 16px; }
+    .pfeat { padding-bottom: 100px; }
+    .pfeat-in { gap: 50px; }
+    .pfeat-row { flex-wrap: wrap; gap: 30px; }
+    .pf { flex: 1 0 40%; }
+  }
+  @media (max-width: 991px) {
+    .plans { padding: 80px 0; }
+    .plans-in { flex-wrap: wrap; align-items: flex-start; gap: 40px 16px; }
+    .plan { flex: 0 0 100%; max-width: 360px; padding-bottom: 20px; }
+    .plan.popular { order: 2; }
+    .plan:nth-child(3) { order: 1; }
+    .pfeat { padding-bottom: 80px; }
+    .pfeat-in { gap: 40px; }
+    .pfeat-row { gap: 30px 60px; }
+    .pf { flex: 0 0 100%; }
+  }
+</style>

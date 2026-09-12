@@ -1,0 +1,47 @@
+---
+import ArrowButton from './ArrowButton.astro';
+import type { Course } from '../data/courses';
+interface Props { course: Course; }
+const { course: c } = Astro.props;
+---
+<a href={`/courses/${c.slug}`} class="ccard">
+  <div class="ccard-top">
+    <span class="lvl">
+      <i class="ico i-square dot"></i>
+      <span class="roll t-label lvl-roll"><span>{c.level}</span><span aria-hidden="true">{c.level}</span></span>
+    </span>
+    <div class="ccard-img cover"><img src={c.image} alt="" /></div>
+  </div>
+  <div class="ccard-bot">
+    <div class="roll t-h4 ccard-title"><h4>{c.title}</h4><h4 aria-hidden="true">{c.title}</h4></div>
+    <div class="ccard-row">
+      <p class="t-body ccard-p">{c.excerpt}</p>
+      <ArrowButton />
+    </div>
+  </div>
+</a>
+
+<style>
+  .ccard { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; padding: 20px; border-radius: 5px; background: var(--sable-2); }
+  .ccard-top { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; width: 100%; }
+  .lvl { display: flex; align-items: center; gap: 10px; }
+  .lvl-roll { align-items: center; white-space: nowrap; }
+  .ccard-img { flex: 1 0 0; max-width: 250px; height: 120px; border-radius: 5px; }
+  .ccard-img img { object-position: 50% 0%; }
+  .ccard-bot { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; width: 100%; }
+  .ccard-title { align-items: center; width: 100%; height: 36px; }
+  .ccard-title h4 { width: 100%; white-space: pre-wrap; word-break: break-word; }
+  .ccard-row { display: flex; align-items: flex-end; gap: 40px; width: 100%; }
+  .ccard-p { flex: 1 0 0; max-width: 330px; color: var(--encre); }
+
+  @media (max-width: 1279px) {
+    .ccard { gap: 30px; }
+    .ccard-img { max-width: 190px; }
+  }
+  @media (max-width: 991px) {
+    .ccard { gap: 20px; }
+    .ccard-top { flex-direction: column; gap: 16px; }
+    .ccard-img { flex: none; width: 100%; max-width: none; }
+    .ccard-row { gap: 30px; }
+  }
+</style>

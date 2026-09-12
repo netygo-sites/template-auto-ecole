@@ -1,0 +1,39 @@
+---
+/**
+ * Rangée de sept tuiles jaunes inclinées (± 4°) avec icône — en tête des sections
+ * « We build more than driving skills… » et « Develop your driving skills… ».
+ * Tuile : 34 × 34, arrondi 4, ombre 0 2px 4px encre-10 ; icône 19 × 21 encre.
+ */
+interface Props { icons: string[]; }
+const { icons } = Astro.props;
+// inclinaison et décalage vertical relevés tuile par tuile sur le gabarit
+const tilt = [
+  { r: -4, dy: -4 }, { r: 4, dy: 4 }, { r: -4, dy: -4 }, { r: 0, dy: 0 },
+  { r: 4, dy: -4 }, { r: -4, dy: 4 }, { r: 4, dy: -4 },
+];
+---
+<div class="irow" aria-hidden="true">
+  {icons.map((ic, i) => (
+    <span class="islot">
+      <span class="itile" style={`transform:translateY(${tilt[i].dy}px) rotate(${tilt[i].r}deg)`}>
+        <i class:list={['ico', `i-${ic}`]}></i>
+      </span>
+    </span>
+  ))}
+</div>
+
+<style>
+  .irow { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 15px; }
+  .islot { position: relative; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; }
+  .itile {
+    position: absolute; z-index: 1;
+    display: flex; align-items: center; justify-content: center;
+    width: 34px; height: 34px;
+    border-radius: 4px;
+    background: var(--jaune);
+    box-shadow: 0 2px 4px 0 var(--encre-10);
+  }
+  .islot:nth-child(4) .itile { width: 32px; height: 32px; }
+  .itile .ico { width: 19px; height: 21px; color: var(--encre); }
+  .islot:nth-child(4) .ico { width: 18px; height: 20px; }
+</style>

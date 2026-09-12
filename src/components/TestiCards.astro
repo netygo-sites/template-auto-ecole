@@ -1,0 +1,91 @@
+---
+/** Carrousel « What our students say about us » (fiche cours) : cartes sable, trois visibles, flèches en tête. */
+import ArrowButton from './ArrowButton.astro';
+const slides = [
+  { quote: '"I was anxious about driving before starting the course. But thanks to my instructor\'s calm and supportive approach, I quickly felt in control behind the wheel. Every lesson built my confidence step by step. I can\'t believe how far I\'ve come!"', author: '— Liam D., 27', avatar: '/images/0Pc81cXlvdXS8ngbNG1m5OuJQ.jpg' },
+  { quote: '"What really stood out to me was how incredibly patient and professional everyone was. The lessons were structured but never overwhelming. I felt like I was learning at my own pace, and by the time my exam came, I felt completely ready."', author: '— Emily R., 43', avatar: '/images/k5VOdEDPULOkyml2pItgwybkX0.jpg', position: '100% 50%' },
+  { quote: '"I had put driving on hold and wasn\'t convinced I\'d ever pick it back up — then I found this school. The team backed me from day one and helped me find my confidence again. These days I\'m driving daily and feel completely at ease on the road."', author: '— Maya K., 32', avatar: '/images/OJBh3qFoWTd23QTIbh5iWbFsUCk.jpg' },
+  { quote: '"From first contact to final test, the whole experience was professional, warm, and well-handled. The instructors bring real enthusiasm to every lesson, and it makes all the difference. I felt personally supported every step of the way. Recommend!"', author: '— Anna K., 31', avatar: '/images/pORbCaVsPNiIPlmLSwkFZgMhZGo.jpg' },
+  { quote: '"I loved how practical everything was — it wasn’t just about memorizing rules, it was about real-world driving. I learned how to stay calm in traffic, handle tricky situations, and actually enjoy being behind the wheel. I feel truly prepared. Nice team!"', author: '— James R., 31', avatar: '/images/Bu9B06jSyW4KBJKZUkeDcPLDl0Q.jpg', position: '50% 10%' },
+  { quote: '"I knew nothing about driving when I started, but finished my course feeling truly ready for the road. The lessons were smooth and well-timed, the instructors were kind and skilled, and the feedback helped me improve more than I thought I would."', author: '— Marcus T., 24', avatar: '/images/e8tPAo3i1hh4qT9IrxnUIgBvd4.jpg' },
+];
+---
+<section class="tk" data-carousel>
+  <div class="tk-in">
+    <div class="tk-head">
+      <h2 class="t-h2 tk-h">What our students say about us</h2>
+      <div class="tk-arrows">
+        <ArrowButton as="button" icon="chevron" label="Previous" class="prev" />
+        <ArrowButton as="button" icon="chevron" flip label="Next" class="next" />
+      </div>
+    </div>
+    <div class="tk-view">
+      <div class="tk-track" data-track>
+        {slides.map((s) => (
+          <div class="tk-card">
+            <div class="tk-t">
+              <div class="stars" aria-label="5 stars">{[0, 1, 2, 3, 4].map(() => <i class="ico i-star star"></i>)}</div>
+              <p class="t-lead tk-q">{s.quote}</p>
+            </div>
+            <div class="tk-a">
+              <span class="tk-av"><img src={s.avatar} alt="" style={s.position ? `object-position:${s.position}` : undefined} /></span>
+              <h6 class="t-h6m tk-name">{s.author}</h6>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.tk[data-carousel]').forEach((root) => {
+    const track = root.querySelector<HTMLElement>('[data-track]')!;
+    const cards = track.children;
+    let i = 0;
+    const visible = () => (innerWidth <= 991 ? 1 : 3);
+    const go = (n: number) => {
+      i = Math.max(0, Math.min(cards.length - visible(), n));
+      const c = cards[0] as HTMLElement;
+      const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+      track.style.transform = `translateX(${-(c.offsetWidth + gap) * i}px)`;
+      root.querySelectorAll('.prev').forEach((b) => b.classList.toggle('is-off', i === 0));
+      root.querySelectorAll('.next').forEach((b) => b.classList.toggle('is-off', i >= cards.length - visible()));
+    };
+    root.querySelector('.prev')!.addEventListener('click', () => go(i - 1));
+    root.querySelector('.next')!.addEventListener('click', () => go(i + 1));
+    addEventListener('resize', () => go(i));
+    go(0);
+  });
+</script>
+
+<style>
+  .tk { display: flex; justify-content: center; padding: 130px 0; background: var(--creme); overflow: clip; }
+  .tk-in { display: flex; flex-direction: column; align-items: center; gap: 60px; width: 100%; max-width: 1210px; padding: 0 20px; }
+  .tk-head { display: flex; align-items: flex-end; justify-content: space-between; width: 100%; }
+  .tk-h { flex: 1 0 0; max-width: 400px; }
+  .tk-arrows { display: flex; align-items: center; gap: 10px; }
+  .tk-view { width: 100%; }
+  .tk-track { display: flex; align-items: flex-start; gap: 20px; width: 100%; transition: transform .6s var(--ease); }
+  .tk-card { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; flex: none; width: calc((100% - 40px) / 3); padding: 30px; border-radius: 5px; background: var(--sable-2); }
+  .tk-t { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; max-width: 314px; }
+  .stars { display: flex; align-items: center; gap: 6px; height: 17px; }
+  .star { width: 16px; height: 17px; color: var(--jaune); }
+  .tk-q { color: var(--encre); }
+  .tk-a { display: flex; align-items: flex-end; gap: 20px; width: 100%; }
+  .tk-av { flex: none; width: 60px; height: 60px; border-radius: 3px; overflow: clip; }
+  .tk-av img { width: 100%; height: 100%; object-fit: cover; }
+  .tk-name { flex: 1 0 0; }
+  @media (max-width: 1279px) {
+    .tk { padding: 100px 0; }
+    .tk-in { gap: 50px; }
+  }
+  @media (max-width: 991px) {
+    .tk { padding: 80px 0; }
+    .tk-in { gap: 40px; }
+    .tk-head { flex-wrap: wrap; gap: 30px 120px; }
+    .tk-h { flex: 0 0 100%; max-width: none; }
+    .tk-card { width: 100%; }
+  }
+  :global(.abtn.is-off) { opacity: .3; }
+</style>

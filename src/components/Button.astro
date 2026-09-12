@@ -1,0 +1,63 @@
+---
+/**
+ * Bouton du template (composant Framer « Lty1e ») : 16 × 20 px, arrondi 5 px,
+ * libellé qui défile vers le haut au survol (deux copies, écart 15 px, conteneur clippé).
+ */
+interface Props {
+  href?: string;
+  label: string;
+  variant?: 'encre' | 'jaune' | 'creme' | 'blanc';
+  class?: string;
+  type?: 'button' | 'submit';
+}
+const { href, label, variant = 'encre', class: className, type } = Astro.props;
+const Tag = href ? 'a' : 'button';
+---
+<Tag href={href} type={href ? undefined : type ?? 'button'} class:list={['btn', `btn-${variant}`, className]}>
+  <span class="btn-roll">
+    <span class="btn-l">{label}</span>
+    <span class="btn-l" aria-hidden="true">{label}</span>
+  </span>
+</Tag>
+
+<style>
+  .btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 16px 20px;
+    border-radius: 5px;
+    border: 0;
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color .4s var(--ease), color .4s var(--ease);
+  }
+  .btn-encre { background: var(--encre); color: var(--creme); }
+  .btn-encre:hover { background: var(--jaune); color: var(--encre); }
+  .btn-jaune { background: var(--jaune); color: var(--encre); }
+  .btn-jaune:hover { background: var(--encre); color: var(--creme); }
+  .btn-creme { background: var(--creme); color: var(--encre); }
+  .btn-creme:hover { background: var(--jaune); color: var(--encre); }
+  .btn-blanc { background: var(--blanc); color: var(--encre); }
+  .btn-blanc:hover { background: var(--jaune); color: var(--encre); }
+
+  .btn-roll {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    height: 19.2px;
+    overflow: clip;
+  }
+  .btn-l {
+    display: block;
+    font: 600 16px/1.2 var(--display);
+    letter-spacing: -0.01em;
+    color: inherit;
+    transition: transform .5s var(--ease);
+  }
+  .btn:hover .btn-l, .btn:focus-visible .btn-l { transform: translateY(calc(-100% - 15px)); }
+</style>

@@ -1,0 +1,66 @@
+---
+import Button from '../Button.astro';
+import Pixels from '../Pixels.astro';
+// ordre ligne par ligne de la grille 2 colonnes (colonne 1 : Certified / Modern / Success)
+const checks = ['Certified team', 'Flexible schedule', 'Modern cars', 'High pass rate', 'Success', 'Support'];
+---
+<section class="trusted">
+  <div class="trusted-in">
+    <div class="trusted-txt">
+      <div class="trusted-head">
+        <div class="trusted-title">
+          <h3 class="t-h3 nowrap">Trusted by</h3>
+          <strong class="t-price trusted-n">1000+</strong>
+          <h3 class="t-h3 trusted-h2">here’s why future drivers choose us</h3>
+        </div>
+        <p class="t-body trusted-p">We’re more than just a driving school — we’re a supportive community that helps you feel confident and prepared</p>
+      </div>
+      <div class="trusted-bot">
+        <ul class="checks">
+          {checks.map((c) => (
+            <li class="check">
+              <span class="check-c"><i class="ico i-check"></i></span>
+              <h6 class="t-h6m">{c}</h6>
+            </li>
+          ))}
+        </ul>
+        <Button href="/about-us" label="Read More About Us" />
+      </div>
+    </div>
+  </div>
+  <div class="trusted-img cover">
+    <img src="/images/knvdppNzLzsRLJo3hveVfjNFjcs.jpg" alt="Smiling student behind the wheel" />
+    <Pixels cell={40} corner="br" />
+  </div>
+</section>
+
+<style>
+  .trusted { position: relative; display: flex; justify-content: center; padding: 130px 0; background: var(--jaune); overflow: clip; }
+  .trusted-in { display: flex; align-items: center; gap: 10px; width: 100%; max-width: 1210px; padding: 0 20px; }
+  .trusted-txt { display: flex; flex-direction: column; align-items: flex-start; gap: 60px; flex: 1 0 0; max-width: 445px; }
+  .trusted-head { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+  .trusted-title { display: flex; flex-wrap: wrap; align-items: flex-end; column-gap: 10px; }
+  .trusted-n { display: block; font-weight: 700; }
+  .trusted-h2 { max-width: 440px; }
+  .trusted-p { color: var(--encre); }
+  .trusted-bot { display: flex; flex-direction: column; align-items: flex-start; gap: 40px; }
+  .checks { display: grid; grid-template-columns: auto auto; justify-content: start; gap: 16px 30px; }
+  .check { display: flex; align-items: center; gap: 10px; white-space: nowrap; }
+  .check-c { display: flex; align-items: center; justify-content: center; flex: none; width: 24px; height: 24px; border-radius: 100%; background: var(--encre); color: var(--jaune); }
+  .check-c .ico { width: 12px; height: 12px; }
+  .trusted-img { position: absolute; top: 0; bottom: 0; left: 50%; right: 0; z-index: 1; }
+  .trusted-img img { object-position: 30% 50%; }
+
+  @media (max-width: 1279px) {
+    .trusted { padding: 100px 0; }
+    .trusted-txt { gap: 50px; }
+  }
+  @media (max-width: 991px) {
+    .trusted { flex-direction: column; align-items: stretch; gap: 40px; padding: 80px 0 0; }
+    .trusted-txt { gap: 40px; max-width: none; }
+    .trusted-h2 { max-width: 100%; }
+    .trusted-p { max-width: 445px; }
+    .checks { grid-template-columns: auto; max-width: 400px; }
+    .trusted-img { position: relative; left: auto; width: 100%; height: 400px; }
+  }
+</style>

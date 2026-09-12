@@ -1,0 +1,112 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import ContactForm from '../components/ContactForm.astro';
+import Button from '../components/Button.astro';
+import Pixels from '../components/Pixels.astro';
+import StepByStep from '../components/StepByStep.astro';
+import TestiCarousel from '../components/TestiCarousel.astro';
+import { site } from '../data/site';
+---
+<Base>
+  <PageHero tag="Contact Us" title="Ready to start your driving journey?" lead="We are available to address your inquiries, offer assistance, and help you navigate your driving journey" image="/images/eCPa892oX0zFcRV4dMYOvLjHM0.jpg" textMax="510px" tall />
+
+  <section class="ct">
+    <div class="ct-in">
+      <div class="ct-l">
+        <div class="ct-t">
+          <div class="ct-tt">
+            <h2 class="t-h2">Have questions about our courses? Let’s talk today!</h2>
+            <p class="t-body ct-p">We’re here to answer your questions, offer support, and guide you on your journey</p>
+          </div>
+          <div class="ct-line"></div>
+          <div class="ct-rows">
+            <div class="ct-row"><span class="ct-ico"><i class="ico i-pin"></i></span><h6 class="t-h6"><a href={site.mapUrl} target="_blank" rel="noopener" class="link-nav">{site.address}</a></h6></div>
+            <div class="ct-row"><span class="ct-ico"><i class="ico i-phone"></i></span><h6 class="t-h6"><a href={`tel: ${site.phone}`} class="link-nav">{site.phone}</a></h6></div>
+            <div class="ct-row"><span class="ct-ico"><i class="ico i-mail"></i></span><h6 class="t-h6"><a href={`mailto: ${site.email}`} class="link-nav">info@examle.com</a></h6></div>
+          </div>
+        </div>
+      </div>
+      <ContactForm />
+    </div>
+  </section>
+
+  <section class="join">
+    <div class="join-in">
+      <div class="join-img cover">
+        <img src="/images/7xYkEcLHhKbpUGHVmYKX7TOVlTw.jpg" alt="Happy student at the wheel" />
+        <Pixels cell={20} corner="tr" color="var(--jaune)" />
+      </div>
+      <div class="join-t">
+        <div class="join-tt">
+          <h3 class="t-h3">Join the ranks of more than 1,000 content students and explore what makes GearUp exceptional</h3>
+          <div class="join-cols">
+            <div class="join-col"><i class="ico i-square join-dot"></i><p class="t-body join-p">From personalized training plans to modern vehicles and expert certified instructors, we give you everything you need to succeed</p></div>
+            <div class="join-col"><i class="ico i-square join-dot"></i><p class="t-body join-p">With a track record of thousands of successful graduates, GearUp is where confidence and competence converge from day one</p></div>
+          </div>
+        </div>
+        <Button href="/about-us" label="More About GearUp" />
+      </div>
+    </div>
+  </section>
+
+  <StepByStep />
+  <TestiCarousel />
+
+  <section class="map">
+    <div class="map-in">
+      <div class="map-img cover"><img src="/images/VIp5HW8MWDqaoVtQYRetErG5pmM.jpg" alt="" style="object-position:0% 50%" /></div>
+      <div class="map-img cover"><img src="/images/il7l9exshjLsrLNfOCc3csfkQd8.jpg" alt="" /></div>
+      <div class="map-img cover"><img src="/images/bMEfIA9nEnAPjsfU3jTmOqXd5Ig.jpg" alt="" /></div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .ct { display: flex; justify-content: center; padding: 130px 0; background: var(--creme); overflow: clip; }
+  .ct-in { display: flex; align-items: center; gap: 120px; width: 100%; max-width: 1210px; padding: 0 20px; }
+  .ct-l { display: flex; align-items: center; flex: 1 0 0; }
+  .ct-t { display: flex; flex-direction: column; align-items: flex-start; gap: 30px; flex: 1 0 0; max-width: 408px; }
+  .ct-tt { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; }
+  .ct-p { max-width: 360px; }
+  .ct-line { width: 100%; height: 1px; background: var(--gris-50); }
+  .ct-rows { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; width: 100%; }
+  .ct-row { display: flex; align-items: center; gap: 16px; width: 100%; }
+  .ct-ico { display: flex; align-items: center; justify-content: center; flex: none; width: 32px; height: 32px; border-radius: 4px; background: var(--jaune); color: var(--encre); }
+  .ct-ico .ico { width: 18px; height: 20px; }
+
+  .join { display: flex; justify-content: center; padding: 130px 0; background: var(--jaune); overflow: clip; }
+  .join-in { display: flex; align-items: center; gap: 140px; width: 100%; max-width: 1210px; padding: 0 20px; }
+  .join-img { flex: 0 0 445px; align-self: stretch; min-height: 377px; border-radius: 5px; }
+  .join-t { display: flex; flex-direction: column; align-items: flex-start; gap: 40px; flex: 1 0 0; }
+  .join-tt { display: flex; flex-direction: column; align-items: flex-start; gap: 32px; }
+  .join-cols { display: flex; align-items: flex-start; gap: 40px; }
+  .join-col { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; flex: 1 0 0; }
+  .join-dot { width: 12px; height: 12px; color: var(--encre); }
+  .join-p { color: var(--encre); }
+
+  .map { display: flex; justify-content: center; background: var(--encre); overflow: clip; }
+  .map-in { display: flex; align-items: center; width: 100%; }
+  .map-img { flex: 1 0 0; height: 400px; }
+
+  @media (max-width: 1279px) {
+    .ct { padding: 100px 0; }
+    .ct-in { gap: 100px; }
+    .join { padding: 100px 0; }
+    .join-in { gap: 80px; }
+    .join-img { flex-basis: 344px; }
+  }
+  @media (max-width: 991px) {
+    .ct { padding: 80px 0; }
+    .ct-in { flex-direction: column; align-items: stretch; gap: 40px; }
+    .ct-t { max-width: none; }
+    .ct-tt { max-width: 440px; }
+    .join { padding: 80px 0; }
+    .join-in { flex-direction: column; align-items: stretch; gap: 40px; }
+    .join-img { order: 1; flex: none; height: 300px; min-height: 0; }
+    .join-cols { flex-direction: column; gap: 20px; }
+    .map-in { flex-wrap: wrap; }
+    .map-in { justify-content: flex-start; }
+    .map-img { flex: 0 0 50%; height: 150px; }
+  }
+</style>

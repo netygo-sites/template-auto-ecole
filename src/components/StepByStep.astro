@@ -1,0 +1,52 @@
+---
+/** Section sombre « Step by step, we help you reach your driving goals » : texte + vidéo + liste des cours (pages Pricing et Contact). */
+import Button from './Button.astro';
+import { courses } from '../data/courses';
+---
+<section class="sbs">
+  <div class="sbs-in">
+    <div class="sbs-t">
+      <div class="sbs-tt">
+        <h3 class="t-h3 sbs-h">Step by step, we help you reach your driving goals</h3>
+        <p class="t-body sbs-p">Tailor your educational experience with a blend of strategic plans and hands-on courses to suit your unique learning path</p>
+      </div>
+      <Button href="/courses" label="Explore Our Courses" variant="jaune" class="hide-m" />
+    </div>
+    <video class="sbs-video" src="/videos/l0pfw2VODfIjcFw5tUntjtfTSM.mp4" autoplay muted loop playsinline></video>
+    <div class="sbs-list">
+      {courses.map((c) => <a href={`/courses/${c.slug}`} class="sbs-row"><h6 class="t-h6m sbs-row-t">{c.title}</h6></a>)}
+    </div>
+    <Button href="/courses" label="Explore Our Courses" variant="jaune" class="show-m sbs-mbtn" />
+  </div>
+</section>
+
+<style>
+  .sbs { display: flex; justify-content: center; padding: 130px 0; background: var(--encre); overflow: clip; }
+  .sbs-in { display: flex; align-items: flex-start; gap: 80px; width: 100%; max-width: 1210px; padding: 0 20px; }
+  .sbs-t { display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; align-self: stretch; flex: 1 0 0; max-width: 330px; }
+  .sbs-tt { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+  .sbs-h { color: var(--creme); }
+  .sbs-p { color: var(--gris); }
+  .sbs-video { flex: 1 0 0; align-self: stretch; min-width: 0; height: 310px; border-radius: 6px; object-fit: cover; }
+  .sbs-list { position: relative; display: flex; flex-direction: column; align-items: flex-start; flex: 1 0 0; max-width: 270px; }
+  .sbs-list::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--creme-20); }
+  .sbs-row { position: relative; display: flex; align-items: center; gap: 10px; width: 100%; padding: 15px 0; }
+  .sbs-row::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 1px; background: var(--creme-20); }
+  .sbs-row-t { color: var(--creme); transition: color .4s var(--ease); }
+  .sbs-row:hover .sbs-row-t { color: var(--jaune); }
+
+  @media (max-width: 1279px) {
+    .sbs { padding: 100px 0; }
+    .sbs-in { gap: 60px; }
+    .sbs-t { max-width: none; }
+    .sbs-list { max-width: none; }
+  }
+  @media (max-width: 991px) {
+    .sbs { padding: 80px 0; }
+    .sbs-in { flex-wrap: wrap; gap: 40px 80px; }
+    .sbs-t { order: 1; flex: 0 0 330px; max-width: 330px; align-self: auto; }
+    .sbs-video { order: 0; flex: 0 0 100%; height: 300px; }
+    .sbs-list { order: 2; flex: 0 0 100%; }
+    .sbs-in :global(.sbs-mbtn) { order: 3; }
+  }
+</style>

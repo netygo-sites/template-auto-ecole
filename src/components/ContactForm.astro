@@ -1,0 +1,36 @@
+---
+/** Formulaire de contact (carte sable, champs crème 50 %). L'attribut `action` est à brancher (Web3Forms, Formspree…). */
+interface Props { action?: string; }
+const { action = '#' } = Astro.props;
+---
+<form class="cform" action={action} method="post">
+  <div class="cform-fields">
+    <label class="cf"><span class="t-body cf-l">First name*</span><span class="cf-box"><input type="text" name="firstName" placeholder="Jane" required /></span></label>
+    <label class="cf"><span class="t-body cf-l">Last name</span><span class="cf-box"><input type="text" name="lastName" placeholder="Smith" /></span></label>
+    <label class="cf"><span class="t-body cf-l">Email*</span><span class="cf-box"><input type="email" name="email" placeholder="jane@framer.com" required /></span></label>
+    <label class="cf"><span class="t-body cf-l">Phone number</span><span class="cf-box"><input type="tel" name="phone" placeholder="+1 (101) 101-1010" /></span></label>
+    <label class="cf cf-full"><span class="t-body cf-l">Message*</span><span class="cf-box cf-area"><textarea name="message" placeholder="Type your message here..." required></textarea></span></label>
+  </div>
+  <button type="submit" class="cform-btn t-btn">Submit</button>
+</form>
+
+<style>
+  .cform { display: flex; flex-direction: column; align-items: flex-start; gap: 30px; flex: 1 0 0; padding: 40px; border-radius: 5px; background: var(--sable-2); overflow: hidden; }
+  .cform-fields { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 15px 10px; width: 100%; }
+  .cf { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; flex: 1 0 calc(50% - 10px); }
+  .cf-full { flex: 0 0 100%; }
+  .cf-l { color: var(--encre); }
+  .cf-box { position: relative; display: flex; align-items: center; width: 100%; padding: 16px 18px; border-radius: 3px; background: var(--creme-50); overflow: hidden; }
+  .cf-box::after { content: ''; position: absolute; inset: 0; border: 1px solid transparent; border-radius: inherit; pointer-events: none; transition: border-color .3s var(--ease); }
+  .cf-box:focus-within::after { border-color: var(--encre-20); }
+  .cf-box input, .cf-box textarea { flex: 1 1 0; width: 100%; min-width: 0; border: 0; padding: 0; background: transparent; outline: none; font: 500 16px/1.5 var(--display); letter-spacing: -0.01em; color: var(--encre); }
+  .cf-box input::placeholder, .cf-box textarea::placeholder { color: var(--graphite); opacity: .5; }
+  .cf-area { height: 100px; padding: 16px 18px; align-items: flex-start; }
+  .cf-area textarea { height: 100%; resize: none; }
+  .cform-btn { display: flex; align-items: center; justify-content: center; width: 100%; padding: 16px 20px; border-radius: 5px; background: var(--encre); color: var(--creme); transition: background-color .4s var(--ease), color .4s var(--ease); }
+  .cform-btn:hover { background: var(--jaune); color: var(--encre); }
+  @media (max-width: 991px) {
+    .cform { flex: none; width: 100%; padding: 30px 20px; }
+    .cf { flex: 0 0 100%; }
+  }
+</style>

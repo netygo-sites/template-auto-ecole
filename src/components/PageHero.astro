@@ -1,0 +1,34 @@
+---
+/** En-tête sur photo assombrie (Services / Pricing / FAQ / Contact) : puce + h1 + accroche en crème, centrés. */
+interface Props { tag: string; title: string; lead: string; image: string; titleMax?: string; textMax?: string; tall?: boolean; }
+const { tag, title, lead, image, titleMax, textMax = '520px', tall = false } = Astro.props;
+---
+<section class:list={['ph', { tall }]}>
+  <div class="ph-bg">
+    <div class="ph-shade"></div>
+    <img src={image} alt="" />
+  </div>
+  <div class="ph-in">
+    <div class="ph-t" style={`max-width:${textMax}`}>
+      <div class="tag"><i class="ico i-square dot"></i><h6 class="t-h6m ph-tag">{tag}</h6></div>
+      <div class="ph-h">
+        <h1 class="t-h1 center ph-h1" style={titleMax ? `max-width:${titleMax}` : undefined}>{title}</h1>
+        <p class="t-lead center ph-lead">{lead}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .ph { position: relative; display: flex; justify-content: center; padding: 160px 0 120px; overflow: clip; background: var(--encre); }
+  .ph-bg { position: absolute; inset: 0; }
+  .ph-bg img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .ph-shade { position: absolute; inset: 0; z-index: 1; background: var(--encre-60); }
+  .ph-in { position: relative; z-index: 1; display: flex; justify-content: center; width: 100%; max-width: 1210px; padding: 0 20px; }
+  .ph-t { display: flex; flex-direction: column; align-items: center; gap: 20px; max-width: 520px; }
+  .tag { display: flex; align-items: center; gap: 10px; }
+  .ph-tag, .ph-h1, .ph-lead { color: var(--creme); }
+  .ph-h { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+  @media (max-width: 1279px) { .ph { padding: 140px 0 80px; } }
+  @media (max-width: 991px) { .ph { padding: 100px 0 60px; } .ph.tall { padding-top: 120px; } .ph-t { max-width: 500px !important; } }
+</style>

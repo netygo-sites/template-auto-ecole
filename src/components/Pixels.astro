@@ -1,0 +1,55 @@
+---
+/**
+ * Décoration « pixels » du template (composant Framer « 63HF6 ») : grille 3 × 3 de carrés
+ * collée dans un angle. Deux motifs relevés sur le gabarit :
+ *  - angle haut-droit (grille tournée de -90°)   ■ ■ ■ / □ ■ ■ / ■ □ ■
+ *  - angle bas-droit (grille non tournée)         ■ □ ■ / □ ■ ■ / ■ ■ ■
+ */
+interface Props {
+  cell?: number;        // taille d'un carré (20 ou 40 px)
+  mobileCell?: number;  // taille ≤ 991 px si différente
+  color?: string;       // couleur des carrés (celle du fond voisin, pour « mordre » l'angle)
+  corner?: 'tr' | 'br' | 'tl' | 'bl';
+  class?: string;
+}
+const { cell = 20, mobileCell, color = 'var(--creme)', corner = 'tr', class: className } = Astro.props;
+const patterns: Record<string, number[]> = {
+  tr: [1, 1, 1, 0, 1, 1, 1, 0, 1],
+  br: [1, 0, 1, 0, 1, 1, 1, 1, 1],
+  tl: [1, 1, 1, 1, 1, 0, 1, 0, 1],
+  bl: [1, 0, 1, 1, 1, 0, 1, 1, 1],
+};
+const cells = patterns[corner];
+---
+<div
+  class:list={['px', `px-${corner}`, className]}
+  style={`--c:${cell}px;--cm:${mobileCell ?? cell}px;--px:${color}`}
+  aria-hidden="true"
+>
+  {cells.map((on) => <i class:list={{ on }}></i>)}
+</div>
+
+<style>
+  .px {
+    --cell: var(--c);
+    position: absolute;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(3, var(--cell));
+    grid-template-rows: repeat(3, var(--cell));
+    width: calc(var(--cell) * 3);
+    height: calc(var(--cell) * 3);
+    pointer-events: none;
+  }
+  .px-tr { top: -1px; right: -1px; }
+  .px-br { bottom: -1px; right: -1px; }
+  .px-tl { top: -1px; left: -1px; }
+  .px-bl { bottom: -1px; left: -1px; }
+  .px i { display: block; }
+  .px i.on { background: var(--px); }
+  @media (max-width: 991px) {
+    .px { --cell: var(--cm); }
+    .px-tr, .px-tl { top: 0; }
+    .px-tr, .px-br { right: 0; }
+  }
+</style>

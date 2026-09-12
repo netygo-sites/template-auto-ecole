@@ -1,0 +1,37 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Faq from '../components/Faq.astro';
+import CtaBand from '../components/CtaBand.astro';
+import PhotoStrip from '../components/PhotoStrip.astro';
+import { faq } from '../data/faq';
+---
+<Base>
+  <PageHero tag="FAQ" title="Got questions? We've got answers" lead="Discover all the details about our driving courses, pricing options, and the support we offer to ensure your success" image="/images/MVFNjiuWPsyuv3IdEMiAZUxqII.jpg" textMax="530px" />
+
+  <section class="faqp">
+    <div class="faqp-in">
+      <div class="faqp-col"><Faq items={faq.slice(0, 5)} openFirst={false} /></div>
+      <div class="faqp-col"><Faq items={faq.slice(5, 10)} openFirst={false} /></div>
+    </div>
+  </section>
+
+  <CtaBand title="Take the first step toward driving with confidence and freedom" label="Get Started Now" href="/contact-us" />
+  <PhotoStrip />
+</Base>
+
+<style>
+  .faqp { display: flex; justify-content: center; padding: 130px 0; background: var(--creme); overflow: clip; }
+  .faqp-in { display: flex; align-items: flex-start; gap: 80px; width: 100%; max-width: 1210px; padding: 0 20px; }
+  .faqp-col { display: flex; flex: 1 0 0; }
+  @media (max-width: 1279px) {
+    .faqp { padding: 100px 0; }
+    .faqp-in { gap: 60px; }
+  }
+  @media (max-width: 991px) {
+    .faqp { padding: 80px 0; }
+    .faqp-in { flex-direction: column; gap: 0; }
+    .faqp-col { flex: none; width: 100%; }
+    .faqp-col + .faqp-col :global(.faq-line:first-child) { display: none; }
+  }
+</style>

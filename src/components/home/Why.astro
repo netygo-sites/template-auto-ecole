@@ -1,0 +1,51 @@
+---
+import Pixels from '../Pixels.astro';
+const feats = [
+  { icon: '/images/45Iwy3ospwViNR3Ubsgm76yo.svg', title: 'Personalized lessons', text: 'We customize each lesson to match your pace, goals, and confidence level' },
+  { icon: '/images/eMXiJi8Zi5QvUUfLWAzXwlb4.svg', title: 'Driving skill training', text: 'We teach you to confidently handle real-life traffic, weather, and road conditions' },
+  { icon: '/images/tDeS9pOAvjWR6eeh5p60nX8z2xQ.svg', title: 'Theory & practice mix', text: 'Master the rules of the road with our theory sessions, then apply them with driving lessons' },
+  { icon: '/images/t4u4znYh6qGeaorQM3ZiBqhPfZQ.svg', title: 'Support at every step', text: 'Our team is here to support you from your first booking to the moment you pass your test' },
+];
+---
+<section class="why">
+  <Pixels cell={40} mobileCell={16} corner="tr" />
+  <div class="why-in">
+    <h2 class="t-h2 why-h hpic-title">Why our lessons <span class="hpic"><img src="/images/7xYkEcLHhKbpUGHVmYKX7TOVlTw.jpg" alt="" /></span> deliver real results for everyone</h2>
+    <div class="feats">
+      {feats.map((f) => (
+        <div class="feat">
+          <img class="feat-ic" src={f.icon} alt="" width="48" height="48" />
+          <div class="feat-t">
+            <h5 class="t-h5 feat-h">{f.title}</h5>
+            <p class="t-body feat-p">{f.text}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .why { position: relative; display: flex; justify-content: center; padding: 130px 0; background: var(--encre); overflow: clip; }
+  .why-in { display: flex; flex-direction: column; align-items: center; gap: 60px; width: 100%; max-width: 1210px; padding: 0 20px; }
+  .why-h { max-width: 560px; color: var(--creme); }
+  .feats { display: flex; align-items: center; gap: 80px; width: 100%; }
+  .feat { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; flex: 1 0 0; }
+  .feat-ic { width: 48px; height: 48px; }
+  .feat-t { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+  .feat-h { color: var(--creme); }
+  .feat-p { max-width: 380px; color: var(--gris); }
+
+  @media (max-width: 1279px) {
+    .why { padding: 100px 0; }
+    .why-in { gap: 50px; }
+    .feats { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+    .feat-p { max-width: 330px; }
+  }
+  @media (max-width: 991px) {
+    .why { padding: 80px 0; }
+    .why-in { gap: 40px; }
+    .feats { display: flex; flex-direction: column; gap: 30px; }
+    .feat-p { max-width: 380px; }
+  }
+</style>
