@@ -59,7 +59,6 @@ La partie **Actus** (liste, article, catégorie) n'est volontairement pas reprod
 ## À brancher
 
 - **Formulaires** (`ContactForm.astro`) : renseigner `action` (Web3Forms, Formspree…).
-- **Vidéos** : les deux MP4 du template pèsent 45 Mo et 36 Mo — à recompresser avant mise en ligne.
 - Le texte de la démo est conservé tel quel (y compris l'e-mail volontairement erroné `info@examle.com` de la page Contact).
 
 ## Performances
@@ -71,8 +70,20 @@ La partie **Actus** (liste, article, catégorie) n'est volontairement pas reprod
   premier écran (`loading="eager"`, `fetchpriority="high"` pour l'image principale).
 - **Vidéos** : pas de lecture automatique. Une vidéo marquée `data-inview` se charge et se lit à
   l'approche de l'écran, et se met en pause en dehors (script dans `Base.astro`).
-  Les deux MP4 sont encore en **4K à 25 Mbit/s** : les réencoder en 1080p diviserait leur poids
-  par dix et allégerait le décodage quand elles sont visibles.
+  Les MP4 du template (4K, 50 i/s, 25 Mbit/s, avec une piste audio inutile) sont réencodés en
+  **1080p**, même cadence et même nombre d'images, sans audio. Originaux dans `.video-originaux/`
+  (hors git). Similarité mesurée (SSIM) à la résolution d'affichage Retina : 0,98 et 0,99.
+  Recette pour toute nouvelle vidéo de fond (ffmpeg installé via `winget install Gyan.FFmpeg`) :
+
+  ```bash
+  ffmpeg -i source.mp4 -map 0:v:0 -an -map_metadata -1 \
+    -vf "scale=1920:1080:flags=lanczos,format=yuv420p" \
+    -c:v libx264 -preset slow -crf 23 -profile:v high -level:v 4.2 -g 100 \
+    -color_primaries bt709 -color_trc bt709 -colorspace bt709 -movflags +faststart sortie.mp4
+  ```
+
+  Le niveau 4.2 garantit le décodage matériel sur les téléphones, et `faststart` permet de
+  démarrer la lecture avant la fin du téléchargement.
 - **Apparitions au défilement** : le masquage initial est posé dans le `<head>` (classe `js-appear`),
   l'animation est une animation CSS (et non une transition, qui écraserait les survols des boutons).
   Le sélecteur des éléments animés existe à deux endroits, `global.css` et `Base.astro`, qui doivent
