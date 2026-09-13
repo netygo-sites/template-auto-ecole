@@ -32,7 +32,7 @@ const steps = [
         </div>
       </div>
     </div>
-    <div class="cd-img cover"><img src={course.image} alt="" style="object-position:50% 30%" /></div>
+    <div class="cd-img cover"><img loading="eager" fetchpriority="high" decoding="async" src={course.image} alt="" style="object-position:50% 30%" /></div>
   </section>
 
   <section class="cd-body">
@@ -45,7 +45,7 @@ const steps = [
         <h3>Who this course is for</h3>
         <ul>{d.audience.map((li) => <li><p>{li}</p></li>)}</ul>
         <div class="spacer"></div>
-        <img src={d.image} alt="" />
+        <img loading="lazy" decoding="async" src={d.image} alt="" />
         <h3>Duration &amp; schedule<br /><br /></h3>
         <ul>{d.schedule.map((li) => <li><p>{li}</p></li>)}</ul>
         <h3>Resume</h3>
@@ -76,7 +76,7 @@ const steps = [
   <section class="cd-steps">
     <div class="cd-steps-in">
       <div class="cd-steps-l">
-        <h2 class="t-h2 hpic-title cd-steps-h"><span class="hpic"><img src="/images/EbB9eodnFNdqxCRRNatDbooI0.jpg" alt="" /></span> Learn to drive with confidence, easy steps to your license</h2>
+        <h2 class="t-h2 hpic-title cd-steps-h"><span class="hpic"><img loading="lazy" decoding="async" src="/images/EbB9eodnFNdqxCRRNatDbooI0.jpg" alt="" /></span> Learn to drive with confidence, easy steps to your license</h2>
         <Button href="/contact-us" label="Book Your First Lesson" variant="jaune" class="hide-m" />
       </div>
       <div class="cd-steps-r">

@@ -20,7 +20,7 @@ const others = instructors.filter((i) => i.slug !== instructor.slug).slice(0, 3)
   <section class="id-hero">
     <div class="id-hero-in">
       <div class="id-photo cover">
-        <img src={instructor.image} alt={instructor.name} />
+        <img loading="eager" fetchpriority="high" decoding="async" src={instructor.image} alt={instructor.name} />
         <Pixels cell={40} corner="bl" color="var(--encre)" />
       </div>
       <div class="id-t">

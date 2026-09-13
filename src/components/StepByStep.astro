@@ -12,7 +12,7 @@ import { courses } from '../data/courses';
       </div>
       <Button href="/courses" label="Explore Our Courses" variant="jaune" class="hide-m" />
     </div>
-    <video class="sbs-video" src="/videos/l0pfw2VODfIjcFw5tUntjtfTSM.mp4" autoplay muted loop playsinline></video>
+    <video class="sbs-video" src="/videos/l0pfw2VODfIjcFw5tUntjtfTSM.mp4" muted loop playsinline preload="none" data-inview></video>
     <div class="sbs-list">
       {courses.map((c) => <a href={`/courses/${c.slug}`} class="sbs-row"><h6 class="t-h6m sbs-row-t">{c.title}</h6></a>)}
     </div>

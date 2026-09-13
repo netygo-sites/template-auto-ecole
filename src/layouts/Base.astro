@@ -24,6 +24,14 @@ const { title = site.title, description = site.description } = Astro.props;
     <link rel="icon" href="/images/RaMOWwXgo06xYUnXkV0lOg9K9ys.png" media="(prefers-color-scheme: light)" />
     <link rel="icon" href="/images/x9vgTKsQqTz6woTWjMWLNqAcwkc.png" media="(prefers-color-scheme: dark)" />
     <link rel="apple-touch-icon" href="/images/7pdkQ6uZzwqFuQFFYKp9eXC8.png" />
+    <script is:inline>
+      // Posé avant le premier rendu pour que les éléments à faire apparaître naissent masqués.
+      // Filet de sécurité : si le script du bas ne s'exécute pas, on réaffiche tout.
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+        document.documentElement.classList.add('js-appear');
+        setTimeout(function () { if (!window.__appear) document.documentElement.classList.remove('js-appear'); }, 4000);
+      }
+    </script>
   </head>
   <body>
     <Header />
@@ -32,15 +40,46 @@ const { title = site.title, description = site.description } = Astro.props;
     </main>
     <Footer />
     <script>
-      // Apparition au défilement (équivalent des effets « appear » du template : fondu + translation de 30 px)
-      const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const targets = document.querySelectorAll<HTMLElement>('main section > div > *:not(.px), main section > video, footer > div > *');
-      if (!reduce && 'IntersectionObserver' in window) {
-        targets.forEach((el, i) => { if (!el.closest('.px')) { el.classList.add('appear'); el.style.transitionDelay = `${(i % 4) * 60}ms`; } });
+      // Apparition au défilement (effets « appear » du template : fondu + translation de 30 px).
+      // Même sélecteur que la règle de masquage de global.css : les deux doivent rester alignés.
+      const SELECTOR = 'main section > div > *:not(.px), main section > video, footer > div > *';
+      (window as any).__appear = true;
+
+      if (document.documentElement.classList.contains('js-appear')) {
         const io = new IntersectionObserver((entries) => {
-          entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-        }, { rootMargin: '0px 0px -8% 0px' });
-        document.querySelectorAll('.appear').forEach((el) => io.observe(el));
+          // Décalage uniquement entre éléments qui entrent ensemble, dans l'ordre de lecture.
+          // L'ancien décalage était calculé sur toute la page : deux voisins recevaient des
+          // délais arbitraires, et un élément entré seul attendait parfois 180 ms pour rien.
+          let rang = 0;
+          entries
+            .filter((e) => e.isIntersecting)
+            .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top || a.boundingClientRect.left - b.boundingClientRect.left)
+            .forEach((e) => {
+              const el = e.target as HTMLElement;
+              el.style.setProperty('--d', `${Math.min(rang++, 3) * 80}ms`);
+              el.classList.add('is-in');
+              el.addEventListener('animationend', () => el.classList.add('appear-done'), { once: true });
+              io.unobserve(el);
+            });
+        }, { rootMargin: '0px 0px -60px 0px' });
+        document.querySelectorAll(SELECTOR).forEach((el) => io.observe(el));
+      }
+
+      // Vidéos : chargées et lues seulement à l'approche de l'écran, mises en pause en dehors.
+      // En lecture automatique, les deux fichiers (80 Mo) se téléchargeaient et se décodaient
+      // dès l'ouverture de la page, même hors champ.
+      const videos = document.querySelectorAll<HTMLVideoElement>('video[data-inview]');
+      if ('IntersectionObserver' in window) {
+        const vio = new IntersectionObserver((entries) => {
+          entries.forEach((e) => {
+            const v = e.target as HTMLVideoElement;
+            if (e.isIntersecting) { v.preload = 'auto'; v.play().catch(() => {}); }
+            else if (!v.paused) v.pause();
+          });
+        }, { rootMargin: '300px 0px' });
+        videos.forEach((v) => vio.observe(v));
+      } else {
+        videos.forEach((v) => { v.preload = 'auto'; v.play().catch(() => {}); });
       }
     </script>
   </body>

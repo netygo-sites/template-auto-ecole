@@ -24,7 +24,7 @@ const cols = side === 'left' ? left : right;
   {cols.map((col) => (
     <div class="mosaic-col">
       {col.map((src) => (
-        <div class:list={['tile', { empty: !src }]}>{src && <img src={src} alt="" loading="lazy" />}</div>
+        <div class:list={['tile', { empty: !src }]}>{src && <img src={src} alt="" loading="eager" decoding="async" />}</div>
       ))}
     </div>
   ))}

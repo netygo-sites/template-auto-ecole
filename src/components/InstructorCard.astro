@@ -5,7 +5,7 @@ interface Props { instructor: Instructor; class?: string; }
 const { instructor: i, class: className } = Astro.props;
 ---
 <a href={`/instructors/${i.slug}`} class:list={['icard', className]}>
-  <div class="icard-img cover"><img src={i.image} alt={i.name} /></div>
+  <div class="icard-img cover"><img loading="lazy" decoding="async" src={i.image} alt={i.name} /></div>
   <div class="icard-row">
     <div class="icard-t">
       <div class="roll t-h5 icard-name"><h5>{i.name}</h5><h5 aria-hidden="true">{i.name}</h5></div>

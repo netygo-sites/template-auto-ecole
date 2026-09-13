@@ -14,7 +14,7 @@ const photos = [
     {photos.map((src, i) => (
       <a href="https://www.instagram.com/" target="_blank" rel="noopener" class:list={['strip-a', { 'hide-m': i >= 4 }]} aria-label="Instagram">
         <span class="strip-badge"><i class="ico i-instagram"></i></span>
-        <span class="strip-img cover"><img src={src} alt="" /></span>
+        <span class="strip-img cover"><img loading="lazy" decoding="async" src={src} alt="" /></span>
       </a>
     ))}
   </div>

@@ -15,7 +15,7 @@ const photos = [
   <div class="gal-in">
     <div class="photos" aria-hidden="true">
       {photos.map((p) => (
-        <div class:list={['photo', p.m]} style={`--r:${p.r}deg`}><img src={p.src} alt="" /></div>
+        <div class:list={['photo', p.m]} style={`--r:${p.r}deg`}><img loading="lazy" decoding="async" src={p.src} alt="" /></div>
       ))}
     </div>
     <div class="cta">

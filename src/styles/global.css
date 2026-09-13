@@ -148,7 +148,16 @@ a:hover .roll > *, a:focus-visible .roll > * { transform: translateY(calc(-100% 
 @media (max-width: 991px) { .hide-m { display: none !important; } }
 @media (min-width: 992px) { .show-m { display: none !important; } }
 
-/* ---- apparition au défilement (script dans Base.astro) ---- */
-.appear { opacity: 0; transform: translateY(30px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
-.appear.in { opacity: 1; transform: none; }
-@media (prefers-reduced-motion: reduce) { .appear { opacity: 1; transform: none; transition: none; } }
+/* ---- apparition au défilement (scripts dans Base.astro) ----
+   La classe js-appear est posée sur <html> dans le <head>, avant le premier rendu :
+   les éléments naissent masqués, donc rien ne clignote au chargement. Elle n'est pas
+   posée si l'utilisateur demande moins d'animations.
+   On anime avec une animation CSS plutôt qu'une transition : une transition écraserait
+   celles des boutons (survol), qui apparaissaient alors d'un coup au lieu de glisser.
+   Courbe « ease-out » : le mouvement démarre vite puis se pose, ce qui colle au défilement
+   au lieu de donner l'impression de traîner derrière lui. */
+.js-appear main section > div > *:not(.px):not(.is-in),
+.js-appear main section > video:not(.is-in),
+.js-appear footer > div > *:not(.is-in) { opacity: 0; }
+.js-appear .is-in:not(.appear-done) { animation: appear .6s cubic-bezier(.22, 1, .36, 1) var(--d, 0ms) backwards; }
+@keyframes appear { from { opacity: 0; transform: translate3d(0, 30px, 0); } }

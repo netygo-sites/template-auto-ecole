@@ -26,13 +26,13 @@ const { title, lead, image, imageAlt = '', quote, author, avatar } = Astro.props
       <div class="hc-card-in">
         <h6 class="t-h6m hc-quote">{quote}</h6>
         <div class="hc-author">
-          <span class="hc-avatar"><img src={avatar} alt="" /></span>
+          <span class="hc-avatar"><img loading="eager" decoding="async" src={avatar} alt="" /></span>
           <h6 class="t-h6m hc-name">{author}</h6>
         </div>
       </div>
     </div>
   </div>
-  <div class="hc-img cover"><img src={image} alt={imageAlt} /></div>
+  <div class="hc-img cover"><img loading="eager" fetchpriority="high" decoding="async" src={image} alt={imageAlt} /></div>
 </section>
 
 <style>

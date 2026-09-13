@@ -50,7 +50,7 @@ const feats = [
       <div class="pfeat-row">
         {feats.map((f) => (
           <div class="pf">
-            <div class="pf-top"><img src={f.icon} alt="" width="40" height="40" /><h5 class="t-h5 pf-h">{f.title}</h5></div>
+            <div class="pf-top"><img loading="lazy" decoding="async" src={f.icon} alt="" width="40" height="40" /><h5 class="t-h5 pf-h">{f.title}</h5></div>
             <p class="t-body pf-p">{f.text}</p>
           </div>
         ))}

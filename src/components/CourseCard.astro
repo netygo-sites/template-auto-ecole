@@ -10,7 +10,7 @@ const { course: c } = Astro.props;
       <i class="ico i-square dot"></i>
       <span class="roll t-label lvl-roll"><span>{c.level}</span><span aria-hidden="true">{c.level}</span></span>
     </span>
-    <div class="ccard-img cover"><img src={c.image} alt="" /></div>
+    <div class="ccard-img cover"><img loading="lazy" decoding="async" src={c.image} alt="" /></div>
   </div>
   <div class="ccard-bot">
     <div class="roll t-h4 ccard-title"><h4>{c.title}</h4><h4 aria-hidden="true">{c.title}</h4></div>

@@ -42,7 +42,7 @@ const slides = [
     </div>
     <div class="testi-img">
       {slides.map((s, i) => (
-        <div class:list={['testi-pic cover', { on: i === 0 }]} data-pic><img src={s.image} alt="" style={`object-position:${s.position}`} /></div>
+        <div class:list={['testi-pic cover', { on: i === 0 }]} data-pic><img loading="lazy" decoding="async" src={s.image} alt="" style={`object-position:${s.position}`} /></div>
       ))}
       <Pixels cell={40} mobileCell={20} corner="br" color="var(--encre)" />
     </div>

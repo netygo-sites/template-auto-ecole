@@ -6,7 +6,7 @@ const { tag, title, lead, image, titleMax, textMax = '520px', tall = false } = A
 <section class:list={['ph', { tall }]}>
   <div class="ph-bg">
     <div class="ph-shade"></div>
-    <img src={image} alt="" />
+    <img loading="eager" fetchpriority="high" decoding="async" src={image} alt="" />
   </div>
   <div class="ph-in">
     <div class="ph-t" style={`max-width:${textMax}`}>

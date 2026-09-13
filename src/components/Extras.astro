@@ -5,13 +5,13 @@ import { services } from '../data/services';
 <section class="extras">
   <div class="extras-in">
     <div class="extras-head">
-      <h2 class="t-h2 extras-h hpic-title">Helpful extras to smooth your road ahead <span class="hpic"><img src="/images/7xYkEcLHhKbpUGHVmYKX7TOVlTw.jpg" alt="" /></span></h2>
+      <h2 class="t-h2 extras-h hpic-title">Helpful extras to smooth your road ahead <span class="hpic"><img loading="lazy" decoding="async" src="/images/7xYkEcLHhKbpUGHVmYKX7TOVlTw.jpg" alt="" /></span></h2>
       <Button href="/services" label="View All Services" variant="creme" class="hide-m" />
     </div>
     <div class="extras-row">
       {services.slice(0, 4).map((s) => (
         <a href={`/services/${s.slug}`} class="scard">
-          <span class="scard-tile"><img src={s.icon} alt="" width="24" height="24" /></span>
+          <span class="scard-tile"><img loading="lazy" decoding="async" src={s.icon} alt="" width="24" height="24" /></span>
           <span class="scard-t">
             <span class="roll t-h5 scard-h"><h5>{s.title}</h5><h5 aria-hidden="true">{s.title}</h5></span>
             <p class="t-body scard-p">{s.excerpt}</p>

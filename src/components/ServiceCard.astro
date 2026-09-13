@@ -7,7 +7,7 @@ const { service: s } = Astro.props;
 <a href={`/services/${s.slug}`} class="svc">
   <span class="svc-top">
     <span class="roll t-h5 svc-h"><h5>{s.title}</h5><h5 aria-hidden="true">{s.title}</h5></span>
-    <span class="svc-tile"><img src={s.icon} alt="" width="24" height="24" /></span>
+    <span class="svc-tile"><img loading="lazy" decoding="async" src={s.icon} alt="" width="24" height="24" /></span>
   </span>
   <span class="svc-b">
     <p class="t-body">{s.excerpt}</p>
