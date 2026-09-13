@@ -61,7 +61,10 @@ const { title = site.title, description = site.description } = Astro.props;
               el.addEventListener('animationend', () => el.classList.add('appear-done'), { once: true });
               io.unobserve(el);
             });
-        }, { rootMargin: '0px 0px -60px 0px' });
+        }, { rootMargin: '0px' });
+        // Pas de marge négative en bas : un élément collé au pied de page (la ligne de
+        // copyright) ne pouvait jamais entrer dans la zone rognée, faute de pouvoir
+        // défiler plus loin, et restait invisible.
         document.querySelectorAll(SELECTOR).forEach((el) => io.observe(el));
       }
 

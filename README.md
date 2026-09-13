@@ -61,3 +61,19 @@ La partie **Actus** (liste, article, catégorie) n'est volontairement pas reprod
 - **Formulaires** (`ContactForm.astro`) : renseigner `action` (Web3Forms, Formspree…).
 - **Vidéos** : les deux MP4 du template pèsent 45 Mo et 36 Mo — à recompresser avant mise en ligne.
 - Le texte de la démo est conservé tel quel (y compris l'e-mail volontairement erroné `info@examle.com` de la page Contact).
+
+## Performances
+
+- **Images** : les originaux Framer (jusqu'à 7008 × 4672 px) sont plafonnés à 2000 px par
+  `node scripts/optimize-images.mjs`. Toute nouvelle image ajoutée dans `public/images/` doit
+  repasser par ce script : il est idempotent et sauvegarde les originaux dans `.image-originaux/`
+  (hors git, hors build). Chargement différé et décodage asynchrone partout, sauf les images du
+  premier écran (`loading="eager"`, `fetchpriority="high"` pour l'image principale).
+- **Vidéos** : pas de lecture automatique. Une vidéo marquée `data-inview` se charge et se lit à
+  l'approche de l'écran, et se met en pause en dehors (script dans `Base.astro`).
+  Les deux MP4 sont encore en **4K à 25 Mbit/s** : les réencoder en 1080p diviserait leur poids
+  par dix et allégerait le décodage quand elles sont visibles.
+- **Apparitions au défilement** : le masquage initial est posé dans le `<head>` (classe `js-appear`),
+  l'animation est une animation CSS (et non une transition, qui écraserait les survols des boutons).
+  Le sélecteur des éléments animés existe à deux endroits, `global.css` et `Base.astro`, qui doivent
+  rester alignés. Tout est désactivé si le visiteur demande moins d'animations.
